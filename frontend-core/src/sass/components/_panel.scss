@@ -1,0 +1,14 @@
+@use '../abstracts' as a;
+
+.panel {
+  margin-top: 6rem;
+  align-items: center;
+  &__menu {
+      display: flex;
+      align-items: center;
+    }
+    &__table {
+        align-items: center;
+        display: flex;
+  }
+}

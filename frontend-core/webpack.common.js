@@ -53,7 +53,10 @@ const config = {
         // Since previous rule reads SVG files we exclude this dir
         exclude: dir + '/fonts',
         // We read scg files with this:
-        use: ['@svgr/webpack']
+        use: ['@svgr/webpack'],
+        generator: {
+          filename: './images/[name].[contenthash:4][ext]'
+        }
       }
     ]
   },

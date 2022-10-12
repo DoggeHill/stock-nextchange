@@ -63,6 +63,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
+    "chart.js": "^3.9.1",
     "p5": "^1.4.2"
   }
 }
