@@ -1,15 +1,20 @@
 /* eslint-disable no-undef */
 //! prod setup
 const { merge } = require('webpack-merge');
+const path = require('path');
 const common = require('./webpack.common.js');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const dir = path.resolve(__dirname, '.');
+
+// https://webpack.js.org/plugins/html-webpack-plugin/
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = merge(common, {
   mode: 'production',
   devtool: 'source-map',
-  output: {
-    publicPath: './'
-  },
+  // output: {
+  //   publicPath: './'
+  // },
 
   module: {
     rules: [
@@ -40,6 +45,13 @@ module.exports = merge(common, {
     ]
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      appMountId: 'app',
+      // Output
+      filename: path.join(dir, 'dist/index.html'),
+      // Template
+      template: path.join(dir, 'src/index.html')
+    }),
     // Optimalize stylesheets
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash:8].css',
