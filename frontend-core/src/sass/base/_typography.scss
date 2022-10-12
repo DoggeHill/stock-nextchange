@@ -6,11 +6,35 @@
 // h1, h2, a, p, ul li
 // all basic typography settings here
 .h1 {
-  font-size: 80px;
+  font-size: 8rem;
   color: a.$light-grey;
   text-align: center;
-  animation: glow 1s ease-in-out infinite alternate;
-  margin-bottom: 30rem;
+}
+
+.h2 {
+  font-size: 2.5rem;
+  color: a.$brand-color;
+  text-align: center;
+}
+
+.h3{
+  font-size: 2rem;
+  font-weight: 200;
+  color: a.$brand-color;
+  text-align: center;
+}
+
+.h4{
+  font-size: 1.75rem;
+  font-weight: 200;
+  color: a.$brand-color;
+  text-align: center;
+}
+
+.p{
+  font-size: 1.25rem;
+  color: a.$text-color;
+ 
 }
 
 .nav-link {

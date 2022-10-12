@@ -1,5 +1,12 @@
 @use '../abstracts/variables' as v;
 
 .navbar {
- 
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    top:0;
+}
+
+#navbarSupportedContent {
+    justify-content: flex-end;
 }

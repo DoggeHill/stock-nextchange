@@ -1,0 +1,13 @@
+@use '../abstracts' as a;
+
+.top-row {
+  background-color: a.$brand-color;
+  color: a.$light-grey;
+  font-size: 1.5rem;
+
+  .row {
+    align-items: center;
+    height: 5rem;
+    padding: 0 2rem;
+  }
+}

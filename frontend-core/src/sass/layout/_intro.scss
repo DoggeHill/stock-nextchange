@@ -1,0 +1,14 @@
+@use "../abstracts" as a;
+
+.intro{
+    img{
+        width: 100%;
+        z-index: -1;
+    }
+    @include a.box-img-cover;
+
+    h1{
+        margin-top: 12%;
+        margin-bottom: 12%;
+    }
+}

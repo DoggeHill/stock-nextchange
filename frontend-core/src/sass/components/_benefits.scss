@@ -1,0 +1,29 @@
+@use '../abstracts' as a;
+
+.benefits {
+  &__text,
+  &__image {
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  &__text {
+    padding: 5rem;
+    // background-image: url('https://picsum.photos/200/300');
+    background-color: rgba(a.$light-grey, 0.7);
+  }
+  &__image {
+  }
+  &__icon {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    span {
+      font-size: 45px;
+      text-align: center;
+      flex-basis: 100%;
+      display: block;
+    }
+  }
+}

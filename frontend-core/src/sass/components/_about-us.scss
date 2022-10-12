@@ -1,0 +1,19 @@
+@use '../abstracts' as a;
+
+.about-us {
+  background-color: a.$light-grey;
+  padding: 10rem 0;
+
+  &__element {
+    padding: 2rem;
+    box-shadow: 0 0 74px rgb(10 10 10 / 7%);
+    margin-bottom: 2rem;
+  }
+
+  img {
+    display: block;
+    height: 8rem;
+    margin: 0 auto;
+    width: 8rem;
+  }
+}
