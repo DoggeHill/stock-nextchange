@@ -11,9 +11,8 @@ import '../img/logo.svg';
 import '../sass/main.scss';
 
 // Modules
-import { firstName } from './module3';
-
-firstName();
+import { hamburgerMenu } from './hamburger';
+hamburgerMenu();
 
 import { createChart } from './chart';
 createChart();

@@ -4,6 +4,17 @@
 @use '../abstracts' as a;
 
 
-footer{
+footer,
+.footer{
     background-color: a.$dark-grey;
+
+    &__links{
+        text-align: center;
+        list-style-type: none
+
+    }
+
+    a,p {
+        color: a.$light-grey;
+    }
 }

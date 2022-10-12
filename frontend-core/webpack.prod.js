@@ -52,6 +52,20 @@ module.exports = merge(common, {
       // Template
       template: path.join(dir, 'src/index.html')
     }),
+    new HtmlWebpackPlugin({
+      appMountId: 'app',
+      // Output
+      filename: path.join(dir, 'dist/services.html'),
+      // Template
+      template: path.join(dir, 'src/services.html')
+    }),
+    new HtmlWebpackPlugin({
+      appMountId: 'app',
+      // Output
+      filename: path.join(dir, 'dist/portfolio.html'),
+      // Template
+      template: path.join(dir, 'src/portfolio.html')
+    }),
     // Optimalize stylesheets
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash:8].css',

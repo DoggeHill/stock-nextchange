@@ -5,6 +5,10 @@
   color: a.$light-grey;
   font-size: 1.5rem;
 
+  @include a.m-down('small') {
+    display: none;
+  }
+
   .row {
     align-items: center;
     height: 5rem;

@@ -11,4 +11,8 @@
         align-items: center;
         display: flex;
   }
+  &__navigation {
+    display: flex;
+    justify-content: center;
+  }
 }
