@@ -1,0 +1,72 @@
+// -----------------------------------------------------------------------------
+// This file contains very basic styles.
+// -----------------------------------------------------------------------------
+@use '../abstracts' as a;
+
+/**
+* Make REM unit adjustable according to the screen width
+* Set height to 100% to cover whole screen
+*/
+html {
+  // default set 1 REM == 10px 😍  (62.5% out of 16 is 10)
+  font-size: 62.5%;
+  height: 100%;
+
+  // for XXL screen- wider than 1500px
+  @include a.m-up('xxlarge') {
+    font-size: 70%;
+  }
+  @include a.m-down('medium') {
+    font-size: 60%;
+  }
+  @include a.m-down('small') {
+    font-size: 55%;
+  }
+  @include a.m-down('xsmall') {
+    font-size: 50%;
+  }
+}
+
+/**
+* Set up a decent box model on the root element
+* Add general text preset for all elements
+* Set height to 100% to cover whole screen
+ */
+body {
+  box-sizing: border-box;
+  color: a.$text-color;
+  font: normal 100% / 1.4 a.$text-font-stack;
+  min-height: 100%;
+}
+
+/**
+ * Make all elements from the DOM inherit from the parent box-sizing
+ * Since `*` has a specificity of 0, it does not override the `html` value
+ * making all elements inheriting from the root box-sizing value
+ * See: https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+ */
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/**
+ * Basic styles for links
+ */
+a {
+  color: a.$brand-color;
+  text-decoration: none;
+  @include a.on-event {
+    color: a.$text-color;
+    text-decoration: underline;
+  }
+}
+
+/**
+* There is margin by default on the bottom in some browsers
+* override this behavior
+*/
+p {
+  margin-bottom: 1rem;
+}

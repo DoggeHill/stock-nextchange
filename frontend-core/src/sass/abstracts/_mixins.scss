@@ -1,0 +1,124 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass mixins.
+// -----------------------------------------------------------------------------
+
+@use '../vendors/bootstrap';
+@use './variables' as v;
+
+/// Event wrapper
+/// @author Harry Roberts
+/// @param {Bool} $self [false] - Whether or not to include current selector
+/// @link https://twitter.com/csswizardry/status/478938530342006784 Original tweet from Harry Roberts
+@mixin on-event($self: false) {
+  @if $self {
+    &,
+    &:hover,
+    &:active,
+    &:focus {
+      @content;
+    }
+  } @else {
+    &:hover,
+    &:active,
+    &:focus {
+      @content;
+    }
+  }
+}
+
+/// Media queries manager
+/// @author Patrik
+/// @link https://getbootstrap.com/docs/5.0/layout/breakpoints/
+/// this is an implementation of bootstrap5 scss solution
+@mixin m-down($name) {
+  @include bootstrap.media-breakpoint-down($name, v.$breakpoints) {
+    @content;
+  }
+}
+
+@mixin m-up($name) {
+  @include bootstrap.media-breakpoint-up($name, v.$breakpoints) {
+    @content;
+  }
+}
+
+@mixin m-between($lower, $upper) {
+  @include bootstrap.media-breakpoint-between($lover, $upper, v.$breakpoints) {
+    @content;
+  }
+}
+
+@mixin m-exact($name) {
+  @include bootstrap.media-breakpoint-only($name, v.$breakpoints) {
+    @content;
+  }
+}
+
+/// Hide scrollbar
+/// @link https://stackoverflow.com/a/30680994/6624955
+@mixin hide-scroll() {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+
+  ::-webkit-scrollbar {
+    background: transparent; /* Optional: just make scrollbar invisible */
+    width: 0; /* Remove scrollbar space */
+  }
+  /* Optional: show position indicator in black */
+  ::-webkit-scrollbar-thumb {
+    background: #ff00;
+  }
+}
+
+/// Make a context based selector a little more friendly
+/// @author Kitty Giraudel
+/// @param {String} $context
+@mixin when-inside($context) {
+  #{$context} & {
+    @content;
+  }
+}
+
+/**
+ * This is help style for positioning img in box.
+ * padding-bottom: says about ratio
+ * class box-img-* *-cover so img is cover
+ * class box-img-* *-contain so img is contain
+ * @author Samuel_Líška
+**/
+%img-properties {
+  bottom: 0;
+  display: block;
+  height: 100%;
+  left: 0;
+  max-width: 100%;
+  object-position: center;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+@mixin box-img-cover {
+  display: block;
+  overflow: hidden;
+  position: relative;
+
+  img {
+    @extend %img-properties;
+    object-fit: cover;
+  }
+}
+
+@mixin box-img-contain {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 100%;
+  position: relative;
+
+  img {
+    @extend %img-properties;
+    object-fit: contain;
+  }
+}

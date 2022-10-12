@@ -1,0 +1,106 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+/// Regular font family
+/// @type List
+$text-font-stack: 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif !default;
+
+/// Code (monospace) font family
+/// @type List
+$code-font-stack: 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Monaco', monospace !default;
+
+/// Icon font family
+/// @type Font family
+$icon-font-stack: 'icomoon' !default;
+
+/// Copy text color
+/// @type Color
+$text-color: rgb(34, 34, 34) !default;
+
+/// Main brand color
+/// @type Color
+$brand-color: rgb(233, 240, 18) !default;
+
+/// Second brand color
+/// @type Color
+$brand-color2: rgb(29, 30, 25) !default;
+
+/// Light grey
+/// @type Color
+$light-grey: rgb(237, 237, 237) !default;
+
+/// Medium grey
+/// @type Color
+$mid-grey: rgb(153, 153, 153) !default;
+
+/// Dark grey
+/// @type Color
+$dark-grey: rgb(68, 68, 68) !default;
+
+/// Container's maximum width
+/// @type Length
+$max-width: 1180px !default;
+
+/// Breakpoints
+/// Breakpoints max values
+/// @type Length
+$break-xxl-max: 1399.98px;
+$break-xl-max: 1199.98px;
+$break-lg-max: 991.98px;
+$break-md-max: 767.98px;
+$break-sm-max: 575.98px;
+$break-xs-max: 449.98px;
+
+// Breakpoints min values
+/// @type Length
+$break-xxl-min: 1400px;
+$break-xl-min: 1200px;
+$break-lg-min: 992px;
+$break-md-min: 768px;
+$break-sm-min: 576px;
+$break-xs-min: 450px;
+
+/// Breakpoints map - MAX-MAP
+/// Minimal mediaqueries use development has been set on 360x640 based on:
+/// @link https://gs.statcounter.com/screen-resolution-stats/mobile/europe 
+/// @prop {String} keys - Keys are identifiers mapped to a given length
+/// @prop {Map} values - Values are actual breakpoints expressed in pixels
+$breakpoints: (
+  'xsmall': $break-xs-max,
+  //449.98
+  'small': $break-sm-max,
+  //575.98
+  'medium': $break-md-max,
+  //767.95
+  'large': $break-lg-max,
+  //991.98
+  'xlarge': $break-xl-max,
+  //1199.92
+);
+
+/// Breakpoints map - MIN-MAP
+/// Minimal mediaqueries use development has been set on 360x640 based on:
+/// @link https://gs.statcounter.com/screen-resolution-stats/mobile/europe 
+/// @prop {String} keys - Keys are identifiers mapped to a given length
+/// @prop {Map} values - Values are actual breakpoints expressed in pixels
+$breakpoints-min: (
+  //1500px --> infinity
+  'xxlarge': 1500px,
+  //1200px
+  'xlarge': $break-xl-min,
+  //992px
+  'large': $break-lg-min,
+  //768px
+  'medium': $break-md-min,
+  //576px
+  'small': $break-sm-min,
+  //450px
+  'xsmall': $break-xs-min,
+);
+
+/// Relative or absolute URL where all assets are served from
+/// @type String
+/// @example scss - When using a CDN
+///   $base-url: 'http://cdn.example.com/assets/';
+$base-url: '/assets/' !default;

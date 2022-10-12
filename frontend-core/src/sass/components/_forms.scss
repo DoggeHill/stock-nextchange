@@ -1,0 +1,246 @@
+// -----------------------------------------------------------------------------
+// This file contains these styling:
+// 1. Basic form behavior
+// 2. Overrides base radio button style
+// 3. Overrides base checkbox style
+// -----------------------------------------------------------------------------
+@use '../abstracts' as a;
+
+$_border-color: #000 !default;
+$_background-color: #fff !default;
+$_font-color: rgb(14, 114, 107) !default;
+$_error-color: #d11818 !default;
+$_right-color: #bada55 !default;
+$_brand-color: #987654 !default;
+
+/**
+** Basic form styling
+**/
+input[type='text'],
+input[type='email'],
+input[type='tel'],
+input[type='number'],
+input[type='password'],
+textarea {
+  _background-color: $_background-color;
+  border: solid 1px $_border-color;
+  border-radius: 4px;
+  color: $_font-color;
+  display: block;
+  height: 4.6rem;
+  margin-bottom: 0;
+  padding: 1.1rem 1.8rem;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+/**
+** Label form styling
+**/
+input[type='text'] + label,
+input[type='email'] + label,
+input[type='tel'] + label,
+input[type='number'] + label,
+input[type='password'] + label,
+.password-input + label,
+textarea + label,
+.select2-container + label {
+  _background-color: $_background-color;
+  border-radius: 7px;
+  font-size: 1.675rem;
+  left: 1rem;
+  letter-spacing: initial;
+  line-height: 1;
+  margin-bottom: 0;
+  padding: 0.15rem 0.4rem;
+  position: absolute;
+  top: 0;
+  transform: translateY(-50%);
+  transition: 0.2s;
+  z-index: 1;
+
+  span {
+    color: currentColor;
+  }
+}
+
+/**
+** Placeholders not focused 
+** this overrides basic labels style from above
+**/
+input[type='text'],
+input[type='email'],
+input[type='number'],
+input[type='password'],
+input[type='tel'],
+.select2-container {
+  &:placeholder-shown:not(:focus) + label {
+    _background-color: transparent;
+    color: $_font-color;
+    left: 1rem;
+    opacity: 1;
+    top: 50%;
+    transform: translateY(-50%);
+
+    span {
+      color: currentColor;
+    }
+  }
+}
+
+input[type='password']:placeholder-shown:not(:focus) {
+  p {
+    color: $_error-color;
+  }
+}
+
+input[type='text'],
+input[type='email'],
+input[type='tel'],
+input[type='number'],
+input[type='password'],
+textarea {
+  &:focus {
+    border: 1px solid $_border-color !important;
+    box-shadow: none;
+    outline: 0;
+
+    + label,
+    .password-input + label {
+      color: $_right-color;
+      font-size: 1.325rem;
+    }
+  }
+}
+
+/**
+** Text area behavior
+**/
+textarea {
+  margin-bottom: 0;
+
+  &:placeholder-shown:not(:focus) + label {
+    _background-color: transparent;
+    left: 1rem;
+    opacity: 1;
+    top: 22px;
+    transform: translateY(-50%);
+    z-index: 0;
+  }
+}
+
+/**
+** Placeholders on focus remove default yellow background
+** this overrides basic labels style from agent
+**/
+@keyframes autofill {
+  0%,
+  100% {
+    background: transparent;
+    color: $_font-color;
+  }
+}
+//webkit
+input:-webkit-autofill {
+  animation-delay: 1s; /* Safari support - any positive time runs instantly */
+  animation-fill-mode: both;
+  animation-name: autofill;
+}
+//moz
+:-moz-autofill,
+:autofill,
+:-moz-autofill-preview {
+  filter: unset;
+}
+
+
+/**
+** Override basic radio button appearance
+** https://stackoverflow.com/questions/4253920/how-do-i-change-the-color-of-radio-buttons
+** answer by Vadim Ovchinnikov
+**/
+input[type='radio'] {
+  /* remove standard background appearance */
+  appearance: none;
+  appearance: none;
+  appearance: none;
+  /* _background-color only for content */
+  background-clip: content-box;
+  _background-color: $_background-color;
+  border: 3px solid $_border-color;
+  border-radius: 50%;
+  /* create custom radio button appearance */
+  display: inline-block;
+  height: 25px;
+  padding: 4px;
+  width: 25px;
+}
+
+/* appearance for checked radio button */
+input[type='radio']:checked {
+  _background-color: $_brand-color;
+  border: 3px solid $_brand-color;
+}
+
+/**
+** Override basic checkbox appearance
+** https://dev.to/proticm/styling-html-checkboxes-is-super-easy-302o
+**/
+.checkbox {
+  align-items: center;
+  cursor: pointer;
+  //make flex box center vertically
+  display: flex;
+  position: relative;
+}
+
+.checkbox > input,
+input[type='checkbox'] {
+  appearance: none;
+  appearance: none;
+  appearance: none;
+  appearance: none;
+  _background-color: transparent;
+  border: 2px solid $_font-color;
+  border-radius: 1px;
+  cursor: pointer;
+  flex-shrink: 0;
+  height: 18px;
+  margin-right: 8px;
+  outline: none;
+  position: relative;
+  transition-duration: 0.3s;
+  width: 18px;
+}
+
+.checkbox > input:checked,
+input[type='checkbox']:checked {
+  _background-color: $_brand-color;
+  border: 0;
+}
+
+.checkbox > input:checked::before,
+input[type='checkbox']:checked::before {
+  color: $_background-color;
+  content: '\e921';
+  display: block;
+  font-family: 'iconmoon';
+  left: 50%;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.checkbox > input:active,
+input[type='checkbox']:active {
+  border: 2px solid $_font-color;
+}
+
+input[type='checkbox'] {
+  @include a.on-event {
+    border: 2px solid $_brand-color;
+    transition: all 0.4s ease-in;
+  }
+}

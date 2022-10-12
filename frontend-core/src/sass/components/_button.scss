@@ -1,0 +1,72 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the button component.
+// -----------------------------------------------------------------------------
+@use "../abstracts" as a;
+
+/// @link https://stackoverflow.com/questions/54084022/what-does-extend-must-be-used-with-a-placeholder-mean
+/// % selector explained
+
+/// @usage how to create a new button group
+/// 1. create a new abstract class e.g. %btn-wild
+/// 2. extend this abstract class in class selector you want to use e.g. .btn-wild
+/// 3. create different style modifiers according to BEM (--style)
+
+// Button abstracts
+$_regular: #f5f5dc !default;
+$_regular-hover: #ffe4c4 !default;
+$_black: #999 !default;
+$_black-hover: #aa8 !default;
+$_orange: #ee9e09 !default;
+
+// -----------------------------------------------------------------------------
+//? Regular button
+// -----------------------------------------------------------------------------
+
+%btn-regular {
+  background-color: $_regular;
+  font-size: 1.5rem;
+  border-radius: 25px;
+  padding: 0.5rem 1rem;
+  @include a.on-event {
+    background-color: $_regular-hover;
+    color: currentColor;
+    text-decoration: none;
+  }
+}
+
+.btn {
+  @extend %btn-regular;
+
+  &--black {
+    background-color: $_black;
+    @include a.on-event {
+      background-color: $_black-hover;
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+//? Wide button
+// -----------------------------------------------------------------------------
+%btn-wide {
+  background-color: $_black;
+  border-radius: 25px;
+  font-size: 1.5rem;
+  padding: 1.5rem 3rem;
+  @include a.on-event {
+    background-color: $_regular-hover;
+    color: currentColor;
+    text-decoration: none;
+  }
+}
+
+.btn-wide {
+  @extend %btn-wide;
+
+  &--orange {
+    background-color: $_orange;
+    @include a.on-event {
+      background-color: $_black;
+    }
+  }
+}

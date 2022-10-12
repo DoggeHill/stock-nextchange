@@ -1,0 +1,23 @@
+/**
+ * Basic typography style for copy text
+ */
+@use '../abstracts' as a;
+
+// h1, h2, a, p, ul li
+// all basic typography settings here
+.h1 {
+  font-size: 80px;
+  color: a.$light-grey;
+  text-align: center;
+  animation: glow 1s ease-in-out infinite alternate;
+  margin-bottom: 30rem;
+}
+
+.nav-link {
+  font-size: 1.4rem;
+  transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  @include a.on-event() {
+    box-shadow: inset 100px 0 0 0 a.$brand-color;
+    color: a.$brand-color2;
+  }
+}

@@ -1,0 +1,15 @@
+@use './variables' as *;
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px $brand-color,
+      0 0 40px $brand-color, 0 0 50px $brand-color, 0 0 60px $brand-color,
+      0 0 70px $brand-color;
+  }
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px lighten($brand-color, 10%),
+      0 0 40px lighten($brand-color, 10%), 0 0 50px lighten($brand-color, 10%),
+      0 0 60px lighten($brand-color, 10%), 0 0 70px lighten($brand-color, 10%),
+      0 0 80px lighten($brand-color, 10%);
+  }
+}

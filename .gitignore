@@ -1,0 +1,9 @@
+*.**
+!frontend-core/**
+dist/**
+dist/
+uploads/**
+
+!.gitignore
+!read.me
+
