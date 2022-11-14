@@ -12,4 +12,15 @@
         margin-top: 12%;
         margin-bottom: 12%;
     }
+
+    &--portfolio {
+        
+        h1{
+            margin: 0;
+            margin-left: 5px;
+            text-align: left;
+            font-size: 3rem;
+            color: a.$brand-color2;
+        }
+    }
 }

@@ -49,7 +49,7 @@ module.exports = merge(common, {
     host: 'localhost',
     // Specifying a port number
     //? If not available free to change
-    port: 8080,
+    port: 8081,
 
     // Enable gzip compression for everything served:
     //compress: true,
