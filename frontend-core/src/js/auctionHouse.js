@@ -160,7 +160,7 @@ function createNewAuctionHouse(event) {
     alert("Name, type, location or category is empty!");
   } else if (description.length > 2000) {
     alert("Description too long");
-  }
+  } 
 
   const payLoad = {
     id: 0,
@@ -238,7 +238,7 @@ function editAuctionHouse(button) {
         .getElementById('editAuctionHouse')
         .addEventListener('click', function () {
           const payLoad = {
-            id: buttonId,
+            id: +buttonId,
             title:document.getElementById('editNewAuctionHouseName').value,
             type: document.getElementById('editNewAuctionHouseType').value,
             location:  document.getElementById('editNewAuctionHouseLocation').value,

@@ -50,10 +50,8 @@ class AuctionHouseController extends Controller
         }
 
         $id = number_format($request->id);
-        if(isset($id)){
+        if(isset($id) && $id !=0){
             $acutionHouse = AuctionHouse::find($id);
-            error_log($id);
-            error_log($acutionHouse);
             $acutionHouse->title = $request->title;
             $acutionHouse->type = $request->type;
             $acutionHouse->location = $request->location;
