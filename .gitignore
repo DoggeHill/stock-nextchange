@@ -1,5 +1,7 @@
 *.**
 !frontend-core/**
+!backend/**
+backend/vendor/**
 dist/**
 dist/
 uploads/**

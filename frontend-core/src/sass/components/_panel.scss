@@ -1,18 +1,80 @@
 @use '../abstracts' as a;
 
 .panel {
-  margin-top: 6rem;
   align-items: center;
+  margin-top: 6rem;
+
   &__menu {
-      display: flex;
-      align-items: center;
+    align-items: flex-start;
+    border-right: 1px solid rgba(72, 94, 144, 0.16);
+    display: flex;
+    min-height: 100%;
+    z-index: 810;
+
+    ul {
+      list-style: none;
+      margin: 0 0px;
+      padding: 15px 0px 30px 0px;
     }
-    &__table {
-        align-items: center;
-        display: flex;
+    li {
+      position: relative;
+      margin: 0 0px;
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-radius: 0;
+      border-left: 0px solid transparent;
+
+      a > i:first-child {
+        padding-right: 1rem;
+      }
+
+      a > i:nth-child(2) {
+        color: a.$mid-grey;
+        transform: rotate(90deg);
+        font-size: 1.6rem;
+        position: absolute;
+        right: 1rem;
+      }
+
+      a {
+        display: inline-block;
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: a.$mid-grey;
+        width: 100%;
+      }
+
+      a:hover {
+        color: a.$brand-color;
+      }
+
+      a::after {
+        content: '\ea34';
+        position: absolute;
+        right: 0;
+        top: 0;
+        display: none;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 22px 10px 22px 0;
+        border-color: transparent #fafafa transparent transparent !important;
+      }
+    }
+  }
+
+  &__stats {
+    border-left: 1px solid rgba(72, 94, 144, 0.16);
+  }
+
+  &__table {
+    align-items: center;
+    display: flex;
   }
   &__navigation {
     display: flex;
     justify-content: center;
   }
+
 }

@@ -21,10 +21,7 @@ import '../sass/main.scss';
 
 import { loadAuctionHouses, loadAuctionHousesCategories } from './auctionHouse';
 loadAuctionHouses();
-loadAuctionHousesCategories();
+loadAuctionHousesCategories('categorySelect');
 
-//import './module2';
-//import { firstName } from './module3';
-//firstName();
 
 console.log('I am here');

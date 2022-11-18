@@ -54,3 +54,9 @@
 .box-img-contain {
   @include a.box-img-contain;
 }
+
+.menu-item-active {
+  *{
+    color: a.$brand-color !important;
+  }
+}

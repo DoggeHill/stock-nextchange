@@ -1,7 +1,7 @@
 // -----------------------------------------------------------------------------
 // This file contains all styles related to the button component.
 // -----------------------------------------------------------------------------
-@use "../abstracts" as a;
+@use '../abstracts' as a;
 
 /// @link https://stackoverflow.com/questions/54084022/what-does-extend-must-be-used-with-a-placeholder-mean
 /// % selector explained
@@ -12,8 +12,8 @@
 /// 3. create different style modifiers according to BEM (--style)
 
 // Button abstracts
-$_regular: #f5f5dc !default;
-$_regular-hover: #ffe4c4 !default;
+$_regular: #5d91c4 !default;
+$_regular-hover: #2525b5 !default;
 $_black: #999 !default;
 $_black-hover: #aa8 !default;
 $_orange: #ee9e09 !default;
@@ -27,6 +27,9 @@ $_orange: #ee9e09 !default;
   font-size: 1.5rem;
   border-radius: 25px;
   padding: 0.5rem 1rem;
+  box-shadow: none;
+  border-radius: 0;
+  color: #fff;
   @include a.on-event {
     background-color: $_regular-hover;
     color: currentColor;
@@ -36,6 +39,13 @@ $_orange: #ee9e09 !default;
 
 .btn {
   @extend %btn-regular;
+
+  &--orange {
+    background-color: $_orange;
+    @include a.on-event {
+      background-color: $_black-hover;
+    }
+  }
 
   &--black {
     background-color: $_black;
@@ -68,5 +78,25 @@ $_orange: #ee9e09 !default;
     @include a.on-event {
       background-color: $_black;
     }
+  }
+}
+
+%btn-text {
+  font-size: 1.5rem;
+  @include a.on-event {
+    text-decoration: underline;
+  }
+}
+.btn-text {
+  @extend %btn-text;
+}
+.btn-text__arrow {
+  &::after {
+    font-family: a.$icon-font-stack;
+    content: '\ea50';
+    position: absolute;
+    display: inline-block;
+    transform: rotate(90deg);
+    transform-origin: center;
   }
 }
