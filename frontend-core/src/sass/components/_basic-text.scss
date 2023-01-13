@@ -1,0 +1,23 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.basic-text-header {
+  &__mainheader,
+  &__subheader {
+    text-align: left;
+  }
+
+  &__mainheader {
+    color: v.$light-grey;
+    font-size: 4.3rem;
+    margin-top: 0;
+}
+
+&__subheader {
+      color: v.$mid-grey;
+    margin-bottom: -0.675rem;
+  }
+  &__desc {
+    color: v.$brand-color;
+  }
+}

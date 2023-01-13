@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class AuctionHouseController extends Controller
 {
+
+    public function test(){
+        return "TEST PASSED";   
+    }
+
     public function index(){
         return AuctionHouse::all();
     }
@@ -29,7 +34,6 @@ class AuctionHouseController extends Controller
         }
     }
 
-
     public function findById($id){
         return AuctionHouseCategory::find($id);
     }
@@ -37,7 +41,7 @@ class AuctionHouseController extends Controller
     public function createAuctionHouse(Request $request){
         if(! is_numeric($request->auction_house_category_id)){
             $resposne = (object) ['message' => "Id must be numeric!"];
-            return response()->json($response, 400);
+            return response()->json($response, 400);    
         }
         else if(is_null($request->title)) {
             $resposne = (object) ['message' => "Title is null"];
@@ -65,5 +69,3 @@ class AuctionHouseController extends Controller
         return response()->json($acutionHouse, 201);
     }
 }
-
-

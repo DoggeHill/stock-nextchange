@@ -16,7 +16,7 @@ class AuctionHouseFactory extends Factory
             'location' -> $this->faker->sentence,
             'description'=> $this->faker->sentence,
             'type'=> $this->faker->sentence,
-            'auctions'=> $this->faker->sentece,
+            'auctions'=> $this->faker->sentence,
     	];
     }
 }

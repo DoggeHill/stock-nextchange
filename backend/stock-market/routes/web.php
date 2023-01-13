@@ -18,6 +18,7 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => '/api'], function () use ($router) {
+    $router->get('test', 'AuctionHouseController@test');
     $router->get('auctionsHouses', 'AuctionHouseController@index');
     $router->get('getAuctionHouseById/{id}', 'AuctionHouseController@getAuctionHouseById');
     $router->get('deleteAuctionHouse/{id}','AuctionHouseController@deleteAuctionHouse');

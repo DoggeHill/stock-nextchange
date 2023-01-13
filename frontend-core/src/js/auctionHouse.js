@@ -6,6 +6,9 @@ const auctionHouseRow = document.getElementById('auctionHouseRow');
 
 export function loadAuctionHouses() {
 
+  // do not load on all the pages
+  if(location.pathname.split("/").slice(-1) != 'auctionHouse' ) return;
+
   document.getElementById('auctionHouseEdit').style.display = 'none';
 
   // listeners

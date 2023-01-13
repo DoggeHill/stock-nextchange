@@ -1,4 +1,4 @@
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 // This file contains all styles related to the button component.
 // -----------------------------------------------------------------------------
 @use '../abstracts' as a;
@@ -12,7 +12,7 @@
 /// 3. create different style modifiers according to BEM (--style)
 
 // Button abstracts
-$_regular: #5d91c4 !default;
+$_regular: #eeeeee !default;
 $_regular-hover: #2525b5 !default;
 $_black: #999 !default;
 $_black-hover: #aa8 !default;
@@ -23,13 +23,12 @@ $_orange: #ee9e09 !default;
 // -----------------------------------------------------------------------------
 
 %btn-regular {
-  background-color: $_regular;
   font-size: 1.5rem;
-  border-radius: 25px;
   padding: 0.5rem 1rem;
   box-shadow: none;
-  border-radius: 0;
-  color: #fff;
+  border-radius: 555;
+  border: 1px solid $_regular;
+  color: $_regular;
   @include a.on-event {
     background-color: $_regular-hover;
     color: currentColor;

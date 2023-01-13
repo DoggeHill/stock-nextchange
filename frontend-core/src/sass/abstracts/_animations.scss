@@ -13,3 +13,22 @@
       0 0 80px lighten($brand-color, 10%);
   }
 }
+
+@keyframes waves {
+  0% {
+    -webkit-transform: scale(0.2, 0.2);
+    transform: scale(0.2, 0.2);
+    opacity: 0;
+    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=0)';
+  }
+  50% {
+    opacity: 0.9;
+    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=90)';
+  }
+  100% {
+    -webkit-transform: scale(0.9, 0.9);
+    transform: scale(0.9, 0.9);
+    opacity: 0;
+    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=0)';
+  }
+}
