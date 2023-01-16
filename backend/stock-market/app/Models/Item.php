@@ -28,4 +28,5 @@ class Item extends Model
     public function type() {
         return $this->hasOne(ItemCategory::class);
     }
+    
 }

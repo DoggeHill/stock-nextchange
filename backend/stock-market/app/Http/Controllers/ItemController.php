@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AuctionHouse;
 use App\Models\Item;
+use App\Models\ItemCategory;
 use App\Models\User;
 use App\Models\AuctionHouseCategory;
 use Illuminate\Http\Request;
@@ -65,5 +66,7 @@ class ItemController extends Controller
         }
     }
 
-
+    public function findItemCategoryById($id) {
+        return ItemCategory::find($id);
+    }
 }

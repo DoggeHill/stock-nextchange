@@ -3,6 +3,7 @@
 import 'bootstrap';
 
 import homeImage from '../img/exchange.png';
+import axios from 'axios';
 
 //import 'bootstrap/js/dist/dropdown';
 
@@ -22,6 +23,20 @@ import '../sass/main.scss';
 import { createChart } from './chart';
 //createChart();
 
+let payload = { email: 'satterfield.patsy@example.net', password: '123456' };
+let btnLogin = document.getElementById('login');
+btnLogin.addEventListener('click', function (e) {
+  axios
+    .post('http://127.0.0.1:8000/api/login', payload)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.error(error);
+    })
+    .then(function () { });
+});
+
 //* Auction house
 import { loadAuctionHouses, loadAuctionHousesCategories } from './auctionHouse';
 // do not load on all the pages
@@ -36,9 +51,8 @@ import { loadAuctionHouseDetail } from './item';
 //loadAuctionHouseDetail();
 
 //* Bid
-import { loadItemBids, loadItemById } from './bid';
+import { loadItemById } from './bid';
 // TODO: do not load on all the pages
-loadItemBids();
 loadItemById(1);
 
 //* General forms
@@ -83,8 +97,6 @@ var glide = new Glide('#intro', {
 
 glide.mount();
 
-
-
 /**
  * Header
  */
@@ -125,15 +137,15 @@ function globalNavDropdowns(e) {
     }));
   var n = window.PointerEvent
     ? {
-        end: 'pointerup',
-        enter: 'pointerenter',
-        leave: 'pointerleave'
-      }
+      end: 'pointerup',
+      enter: 'pointerenter',
+      leave: 'pointerleave'
+    }
     : {
-        end: 'touchend',
-        enter: 'mouseenter',
-        leave: 'mouseleave'
-      };
+      end: 'touchend',
+      enter: 'mouseenter',
+      leave: 'mouseleave'
+    };
   this.dropdownRoots.forEach(function (e, r) {
     e.addEventListener(n.end, function (n) {
       n.preventDefault(), n.stopPropagation(), t.toggleDropdown(e);
@@ -178,9 +190,9 @@ function globalNavPopup(e) {
       e.stopPropagation();
     }),
     this.closeButton &&
-      this.closeButton.addEventListener(n, function (e) {
-        t.closeAllPopups();
-      }),
+    this.closeButton.addEventListener(n, function (e) {
+      t.closeAllPopups();
+    }),
     document.body.addEventListener(
       n,
       function (e) {
@@ -208,8 +220,8 @@ function globalNavPopup(e) {
       if (!('Analytics' in window)) return;
       n
         ? window.Analytics[e](t, {
-            source: n
-          })
+          source: n
+        })
         : window.Analytics[e](t);
     }
 
@@ -448,7 +460,7 @@ var Strut = {
     for (var n = 0; n < t.length; n++) t[n].classList.remove(this.activeClass);
   }),
   Strut.supports.pointerEvents ||
-    Strut.load.css('v3/shared/navigation_ie10.css'),
+  Strut.load.css('v3/shared/navigation_ie10.css'),
   Strut.ready(function () {
     new globalNavDropdowns('.globalNav'),
       new globalNavPopup('.globalNav .navSection.mobile'),

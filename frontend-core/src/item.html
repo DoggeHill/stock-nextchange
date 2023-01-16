@@ -76,12 +76,12 @@
 
           <div class="container">
             <div class="row">
-              <div class="col-lg-3">
+              <div class="col-lg-4">
                 <div class="card card__pull-up">
-                  <h3>About</h3>
+                  <h3>Auction</h3>
                   <div>
                     <i class="icon icon-house"></i>
-                    <h4>Auction house name</h4>
+                    <h4>How does it work? 🤔</h4>
                   </div>
                   <p>
                     Scanfcode.com <i>CODE WANTS TO BE SIMPLE </i> is an
@@ -93,59 +93,55 @@
               </div>
               <div class="col-lg-4">
                 <div class="card card__pull-up">
-                  <h3>About</h3>
+                  <h3>About item</h3>
                   <div>
                     <i class="icon icon-house"></i>
-                    <h4>Auction house name</h4>
+                    <h4 id="itemTitle">Auction house name</h4>
                   </div>
-                  <p>
-                    Scanfcode.com <i>CODE WANTS TO BE SIMPLE </i> is an
-                    initiative to help the upcoming programmers with the code.
-                    Scanfcode focuses on providing the most efficient code or
-                    snippets as the code wants to be simple.
+                  <p id="itemDescription">
+                    
                   </p>
+                  <div>
+                    <p>Owner:  <span id="itemOwner"></span></p>
+                    <p>Auction house:  <span id="itemAuctionHouse"></span></p>
+                    <p>Date started:  <span id="itemDateStarted"></span></p>
+                    <p>Category:  <span id="itemCategory"></span></p>
+                  </div>
                 </div>
               </div>
-              <div class="col-lg-5">
-                <div class="card card__pull-up">
-                  <h3>About</h3>
-                  <div>
-                    <i class="icon icon-house"></i>
-                    <h4>Auction house name</h4>
-                  </div>
-                  <p>
-                    Scanfcode.com <i>CODE WANTS TO BE SIMPLE </i> is an
-                    initiative to help the upcoming programmers with the code.
-                    Scanfcode focuses on providing the most efficient code or
-                    snippets as the code wants to be simple.
-                  </p>
+              <div class="col-lg-4">
+                <div class=" card card__pull-up card__image">
+                    <img id="item_image" src="https://picsum.photos/200/200" alt="x">
                 </div>
               </div>
               <div class="row">
-                <div class="intro intro--portfolio">
+                <div class="intro intro--portfolio intro--small">
                   <h2 class="h3">Auction</h2>
                 </div>
                 <div class="col-lg-12">
                   <div class="card card--auction">
                     <div class="auction">
-                      <time class="totalTime" datetime="2018-07-07">July 7</time>
-                      <time class="remaingTime" datetime="PT2H30M">2h 30m</time>
-                      <span class="totalPrice">Total price: 10,00€</span>
-                      <span class="totalPrice">Initial price: 10,00€</span>
-                      <span class="bidPrice">10,00€</span>
+                      <time id="itemDateFinish" class="totalTime" datetime="2018-07-07">July 7</time>
+                      <div class="itemCountDown remainingTime" id="itemCountDown">
+                        0:0:0
+                      </div>
+                      <p class="totalPrice">Total price: <span id="itemTotalPrice">0.0</span>€</p>
+                      <p class="itemInitialPrice">Initial price: <span id="itemInitialPrice">0.0</span>€</p>
+
+                      <p class="bidPrice">Bid price: <span id="itemBidPrice">0.0</span>€</p>
                       <div class="bidsButtons">
-                        <div class="btn btn--plus"></div>
-                        <div class="btn">Submit!</div>
-                        <div class="btn btn--minus"></div>
+                        <div id="itemBidPlus" class="btn btn--plus"></div>
+                        <div id="itemBidSubmit" class="btn">Submit!</div>
+                        <div id="itemBidMinus" class="btn btn--minus"></div>
                       </div>
                     </div>
-                    <span class="timer">5,4,3</span>
+                    <span id="itemTimer" class="timer">5,4,3</span>
                   </div>
                 </div>
               </div>
             </div>
             <div class="row">
-              <div class="intro intro--portfolio">
+              <div class="intro intro--portfolio intro--small">
                 <h2 class="h3">Bids</h2>
               </div>
               <div class="card--table" id="wrapper"></div>

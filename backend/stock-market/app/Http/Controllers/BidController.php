@@ -20,11 +20,13 @@ class BidController extends Controller
     }   
 
     public function findByItemId($id) {
-        return Bid::select('*')->where('item_id', $id)->get();
+
+        return Bid::select('bid.*', 'users.name')
+            ->join('users','bid.user_id', '=', 'users.id')->get();
     }
 
     public function findMaxByItemId($id) {
-        return Bid::select('*')->where('item_id', $id)->max('price')->get();
+        return Bid::select('*')->where('item_id', $id)->max('price');
     }
 
     public function findByUserId($id){
@@ -34,10 +36,8 @@ class BidController extends Controller
     public function createBid(Request $request){
 
         $this->validate($request, [
-            'id' => 'required|numeric',
-            'title' => 'required|max:255',
-            'date_started' => 'required|after:yesterday',
-            'initial_price' => 'required|numeric|between:1,1000',
+            'price' => 'required|numeric',
+            'date' => 'required|after:yesterday',
             'user_id' => 'exists:App\Models\User,id',
             'item_id' => 'exists:App\Models\Item,id',
         ]);

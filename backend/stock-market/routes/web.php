@@ -56,6 +56,7 @@ $router->group(['prefix' => '/api/item'], function () use ($router) {
     $router->get('list', 'ItemController@list');
     $router->get('findById/{id}', 'ItemController@findById');
     $router->get('findByUserId/{id}', 'ItemController@findByUserId');
+    $router->get('findItemCategoryById/{id}', 'ItemController@findItemCategoryById');
 
     $router->delete('delete/{id}', 'ItemController@deleteItem');
     $router->put('createItem', 'ItemController@createItem');
@@ -68,7 +69,7 @@ $router->group(['prefix' => '/api/bid'], function () use ($router) {
     $router->get('findByUserId/{id}', 'BidController@findByUserId');
     $router->get('findByItemId/{id}', 'BidController@findByItemId');
     $router->get('findMaxByItemId/{id}', 'BidController@findMaxByItemId');
-    $router->post('createBid', 'BidController@createItem');
+    $router->post('createBid', 'BidController@createBid');
     $router->post('stats', 'BidController@stats');
     $router->post('statsByUser/{id}', 'BidController@statsByUser');
 });

@@ -14,7 +14,7 @@ class Bid extends Model
      * @description get all posts for the category
      */
     public $table = 'bid';
-    protected $fillable = ['price', 'date'];
+    protected $fillable = ['price', 'date', 'item_id', 'user_id'];
 
     public function item() {
         return $this->hasOne(Item::class);
