@@ -41,19 +41,26 @@
   }
 
   &--portfolio {
-    margin-bottom: 3rem;
+    padding-left: 3rem;
+    margin-bottom: 1rem;
     display: flex;
     justify-content: space-between;
+    padding-bottom: 4rem;
     h1,
     select {
       display: block;
+    }
+    h1,
+    h2,
+    h3 {
+      color: a.$light-grey;
     }
     h1 {
       margin: 0;
       margin-left: 5px;
       text-align: left;
       font-size: 3rem;
-      color: a.$brand-color2;
+      color: a.$light-grey;
     }
     select {
       width: 33%;

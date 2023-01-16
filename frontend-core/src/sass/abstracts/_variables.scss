@@ -21,7 +21,13 @@ $text-color: rgb(34, 34, 34) !default;
 /// Main brand color
 /// @type Color
 $brand-color: rgb(62, 62, 223) !default;
+$brand-color-dark: rgb(15, 15, 142) !default;
 
+// Main panel color
+/// @type Color
+$panel-color: #2c2449 !default;
+$panel-color-dark: #3b3364 !default;
+$panel-color-mark: #ec8153 !default;
 /// Second brand color
 /// @type Color
 $brand-color2: rgb(29, 30, 25) !default;

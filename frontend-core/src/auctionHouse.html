@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div class="container-fluid panel">
+    <div class="row">
+      <aside class="col-lg-2 panel__menu">
+        <div>
+            <div class="panel__logo">
+                <img src="https://picsum.photos/50/50" alt="x" />
+                <span>Stock<br>exchange</span>
+              </div>
+          <ul>
+            <li class="avatar">
+              <i class="icon icon-book"></i>
+              <span>Hello, Patrik Hyll</span>
+              <span>patrikhyll@gmail.com</span>
+            </li>
+            <li>
+              <a href=""><i class="icon-office"></i>Portfolio<i class="icon-ctrl"></i></a>
+            </li>
+            <li>
+              <a href=""><i class="icon-droplet"></i>Reports<i class="icon-ctrl"></i></a>
+            </li>
+            <li class="menu-item-active">
+              <a href=""><i class="icon-blog"></i>Auction houses<i class="icon-ctrl"></i></a>
+            </li>
+            <li>
+              <a href=""><i class="icon-music"></i>Charts<i class="icon-ctrl"></i></a>
+            </li>
+            <li>
+              <a href=""><i class="icon-pacman"></i>Currency exchange<i class="icon-ctrl"></i></a>
+            </li>
+          </ul>
+          <div class="footer">
+            <span>
+                Stock exchange Main dashboard<br>
+            </span>
+            <span>
+                &#169 2023 All Rights Reserved<br><br>
+            </span>
+            <span>
+                Made with 💟 by DoggeHill<br>
+            </span>
+          </div>
+        </div>
+      </aside>
+      <main class="col-lg-10 panel--houses panel__main">
+        <div class="intro intro--portfolio">
+          <h1 class="h1">Auction housess</h1>
+          <select id="auctionHouseSelect" class="form-select select2" aria-label="Default select example" name="" id="categorySelect">
+          </select>
+        </div>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4  auction_house auction_house--description">
+              <div class=" card card__pull-up">
+                <h3>About</h3>
+                <div>
+                  <i class="icon icon-house"></i>
+                  <h4>Auction house name</h3>
+                </div>
+                <p>
+                  Scanfcode.com <i>CODE WANTS TO BE SIMPLE </i> is an initiative to
+                  help the upcoming programmers with the code. Scanfcode focuses on
+                  providing the most efficient code or snippets as the code wants to
+                  be simple. 
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-8  auction_house auction_house--description">
+                <div class=" card card__pull-up">
+                  <h3>About</h3>
+                  <div>
+                    <i class="icon icon-house"></i>
+                    <h4>Auction house name</h3>
+                  </div>
+                  <p>
+                    Scanfcode.com <i>CODE WANTS TO BE SIMPLE </i> is an initiative to
+                    help the upcoming programmers with the code. Scanfcode focuses on
+                    providing the most efficient code or snippets as the code wants to
+                    be simple. 
+                  </p>
+                </div>
+              </div>
+              <div class="col-lg-7  auction_house auction_house--description">
+                <div class=" card card--chart card__pull-up">
+                  <h3>Price development</h3>
+                  <canvas id="myChart" width="1100" height="390" ></canvas>
+                </div>
+              </div>
+              <div class="col-lg-5  auction_house auction_house--description">
+                <div class=" card card__pull-up card__image">
+                    <img src="https://picsum.photos/200/200" alt="x">
+                </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+                <div class="intro intro--portfolio">
+                    <h1 class="h3">Items</h1>
+                </div>
+                <div class="card--table" id="wrapper"></div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div id="toastGood" class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Connection</strong>
+        <small>0 mins ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Request approved
+      </div>
+    </div>
+  </div>
+  <div id="toastBad" class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Connection</strong>
+        <small>0 mins ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Connection error 😢
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

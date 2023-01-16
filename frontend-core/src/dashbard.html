@@ -10,33 +10,19 @@
 </head>
 
 <body>
-  <header>
-    <nav class="navbar">
-      <div class="navbar__logo">
-        <img src="https://picsum.photos/50/50" alt="x" />
-      </div>
-      <div id="hamburger" class="navbar__hamburger">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-      </div>
-      <ul id="hamburgerNavLinks" class="navbar__nav-links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Solutions</a></li>
-        <li><a href="#">Products</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">Contact Us</a></li>
-        <li><button class="btn">Login</button></li>
-        <li><button class="btn">Join</button></li>
-      </ul>
-    </nav>
-  </header>
+
+
 
   <div class="container-fluid panel">
     <div class="row">
       <aside class="col-lg-2 panel__menu">
         <div>
           <ul>
+            <li class="avatar">
+              <i class="icon icon-book"></i>
+              <span>Patrik Hyll</span>
+              <span>patrikhyll@gmail.com</span>
+            </li>
             <li>
               <a href=""><i class="icon-office"></i>Portfolio<i class="icon-ctrl"></i></a>
             </li>
@@ -55,7 +41,7 @@
           </ul>
         </div>
       </aside>
-      <main class="col-lg-8 panel--houses">
+      <main class="col-lg-8 panel--houses panel__main">
         <div class="intro intro--portfolio">
           <h1 class="h1">Auction houses</h1>
           <select class="form-select" aria-label="Default select example" name="" id="categorySelect">
@@ -64,7 +50,26 @@
         </div>
 
         <div class="container">
-          <div class="row" id="auctionHouseRow"></div>
+          <div class="row">
+            <div class="col-lg-4 auction_house auction_house--descrption">
+              <div class="auction_house__pull-up">
+                <h3 class="h4">About</h3>
+                <div>
+                  <i class="icon icon-house"></i>
+                  <h4 class="h3">Auction house name</h3>
+                </div>
+                <p>
+                  Scanfcode.com <i>CODE WANTS TO BE SIMPLE </i> is an initiative to
+                  help the upcoming programmers with the code. Scanfcode focuses on
+                  providing the most efficient code or snippets as the code wants to
+                  be simple. 
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="row" id="auctionHouseRow">
+
+          </div>
           <div class="row" id="auctionHouseRowPlus">
             <div class="col-lg-4 auction_house auction_house--add-new">
               <div class="auction_house__pull-up">
@@ -73,33 +78,6 @@
                 </a>
               </div>
             </div>
-          </div>
-        </div>
-        <div id="auctionHouseEdit" class="container">
-          <div class="row">
-            <form id="createNewForm">
-              <div class="form-group">
-                <input required type="text" class="form-control" id="editNewAuctionHouseName" />
-              </div>
-              <div class="form-group">
-                <input required type="text" class="form-control" id="editNewAuctionHouseType" />
-              </div>
-              <div class="form-group">
-                <input required type="text" class="form-control" id="editNewAuctionHouseLocation" />
-              </div>
-              <div class="form-group">
-                <select multiple class="form-control" id="editNewAuctionHouseCat"></select>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" id="editNewAuctionHouseDescription" rows="3"></textarea>
-              </div>
-            </form>
-            <button type="button" id="deleteAuctionHouse" class="btn btn--orange btn-secondary">
-              Delete auction house
-            </button>
-            <button type="button" id="editAuctionHouse" class="btn btn-primary">
-              Save changes
-            </button>
           </div>
         </div>
       </main>
@@ -223,7 +201,40 @@
           <button type="button" id="createAuctionHouse" class="btn btn-primary">
             Save changes
           </button>
+          <button type="button" id="deleteAuctionHouse" class="btn btn-primary">
+            Save changes
+          </button>
+          <button type="button" id="editAuctionHouse" class="btn btn-primary">
+            Save changes
+          </button>
         </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div id="toastGood" class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Connection</strong>
+        <small>0 mins ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Request approved
+      </div>
+    </div>
+  </div>
+  <div id="toastBad" class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Connection</strong>
+        <small>0 mins ago</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Connection error 😢
       </div>
     </div>
   </div>

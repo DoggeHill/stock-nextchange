@@ -1,4 +1,4 @@
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // This file contains all styles related to the button component.
 // -----------------------------------------------------------------------------
 @use '../abstracts' as a;
@@ -16,6 +16,8 @@ $_regular: #eeeeee !default;
 $_regular-hover: #2525b5 !default;
 $_black: #999 !default;
 $_black-hover: #aa8 !default;
+
+$_green: #70b944 !default;
 $_orange: #ee9e09 !default;
 
 // -----------------------------------------------------------------------------
@@ -33,6 +35,7 @@ $_orange: #ee9e09 !default;
     background-color: $_regular-hover;
     color: currentColor;
     text-decoration: none;
+    cursor: pointer;
   }
 }
 
@@ -50,6 +53,31 @@ $_orange: #ee9e09 !default;
     background-color: $_black;
     @include a.on-event {
       background-color: $_black-hover;
+    }
+  }
+  &--plus,
+  &--minus {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 9px;
+    &::after {
+      position: relative;
+      display: inline-block;
+      font-weight: bold;
+      font-size: 4rem;
+    }
+  }
+
+  &--plus {
+    background-color: $_green;
+    &::after {
+      content: '+';
+    }
+  }
+  &--minus {
+    background-color: $_orange;
+    &::after {
+      content: '-';
     }
   }
 }

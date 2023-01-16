@@ -1,22 +1,26 @@
 import axios from 'axios';
-import { Modal, Toast, Popover } from 'bootstrap';
+import { Modal, Toast } from 'bootstrap';
 
 // vars
 const auctionHouseRow = document.getElementById('auctionHouseRow');
 
+const prefix = 'http://127.0.0.1:8000/api/auction';
+const urls = {
+  auctionHouse: prefix + '/auctionHouse',
+  auctionHouseCat: prefix + '/auctionsHouseCat',
+  findAuctionHouseById: prefix + '/getAuctionHouseById/'
+};
+
+const goodToast = new Toast(document.getElementById('toastGood'), null);
+const badToast = new Toast(document.getElementById('toastBad'), null);
+
 export function loadAuctionHouses() {
-
-  // do not load on all the pages
-  if(location.pathname.split("/").slice(-1) != 'auctionHouse' ) return;
-
-  document.getElementById('auctionHouseEdit').style.display = 'none';
-
   // listeners
   listeners();
 
   // Make a request for a user with a given ID
   axios
-    .get('http://localhost:8000/api/auctionsHouses')
+    .get(urls['auctionHouse'])
     .then(function (response) {
       auctionHouseRow.innerHTML = '';
       for (const auctionHouse of response.data) {
@@ -31,7 +35,8 @@ export function loadAuctionHouses() {
                   <span class="auction_house__type"><b>Type:</b> ${auctionHouse.type}</span>
                   <span class="auction_house__description"><b>Description:</b> ${auctionHouse.description}</span>
                   <span class="auction_house__location"><b>Location:</b> ${auctionHouse.location}</span>
-                  <a class="auction_house__button btn-text btn-text__arrow" editId="${auctionHouse.id}" href="javascript:void(0)">Details</a>
+                  <a class="auction_house__button btn-text btn-text__arrow" editId="${auctionHouse.id}" href="javascript:void(0)">Edit</a>
+                  <a class="show_house__button btn-text btn-text__arrow">Details</a>
                 </div>
               </div>
             </div>
@@ -43,25 +48,26 @@ export function loadAuctionHouses() {
       });
     })
     .catch(function (error) {
-      // handle error
-      console.log(error);
+      console.error(error);
+      badToast.show();
     })
     .then(function () {
-      console.log('executed');
-      // always executed
+      goodToast.show();
     });
 }
 
-export function loadAuctionHousesCategories(selector, callbackSelect, callBack) {
-  console.log('auction houses categories');
-
+export function loadAuctionHousesCategories(
+  selector,
+  callbackSelect,
+  callBack
+) {
   // vars
   const selectAuctionHouseCat = document.getElementById(selector);
   // remove old elements
   selectAuctionHouseCat.innerHTML = '';
   // Make a request for a user with a given ID
   axios
-    .get('http://localhost:8000/api/auctionsHousesCat')
+    .get(urls['auctionHouseCat'])
     .then(function (response) {
       // handle success
       for (const auctionHouseCat of response.data) {
@@ -76,13 +82,8 @@ export function loadAuctionHousesCategories(selector, callbackSelect, callBack) 
       callBack();
     })
     .catch(function (error) {
-      // handle error
-      // TODO: error handler
-      console.log(error);
-    })
-    .then(function () {
-      console.log('executed');
-      // always executed
+      console.error(error);
+      badToast.show();
     });
 }
 
@@ -90,7 +91,7 @@ function loadAuctionHousesCategory(categoryId) {
   console.log('auction houses category detail');
 
   axios
-    .get('http://localhost:8000/api/auctionsHousesCat/' + categoryId)
+    .get('http://localhost:8000/api/auctionHousesCat/' + categoryId)
     .then(function (response) {
       // handle success
       console.log(response);
@@ -123,7 +124,7 @@ function listeners() {
 function sendCreateNewAuctionHouseCategory() {
   let payload = { title: 'John Doe', type: 'gardener' };
   axios
-    .post('http://localhost:8000/api/auctionsHousesCat/', payload)
+    .post('http://localhost:8000/api/auctionHousesCat/', payload)
     .then(function (response) {
       // handle success
       console.log(response);
@@ -163,7 +164,7 @@ function createNewAuctionHouse(event) {
     alert("Name, type, location or category is empty!");
   } else if (description.length > 2000) {
     alert("Description too long");
-  } 
+  }
 
   const payLoad = {
     id: 0,
@@ -201,30 +202,31 @@ function createNewAuctionHouse(event) {
 }
 
 function editAuctionHouse(button) {
-
-  document.getElementById('auctionHouseEdit').style.display = 'block';
-
   const buttonId = button.getAttribute('editid');
 
   axios
-    .get('http://localhost:8000/api/getAuctionHouseById/' + buttonId)
+    .get(urls['findAuctionHouseById'] + buttonId)
     .then(function (response) {
-      document.getElementById('editNewAuctionHouseName').value =
+      document.getElementById('createNewAuctionHouseName').value =
         response.data.title;
-      document.getElementById('editNewAuctionHouseType').value =
+      document.getElementById('createNewAuctionHouseType').value =
         response.data.type;
-      document.getElementById('editNewAuctionHouseLocation').value =
+      document.getElementById('createNewAuctionHouseLocation').value =
         response.data.location;
-      document.getElementById('editNewAuctionHouseDescription').value =
+      document.getElementById('createNewAuctionHouseDescription').value =
         response.data.description;
 
-      loadAuctionHousesCategories('editNewAuctionHouseCat', null,  function () {
-        console.log('here');
-        document.getElementById('editNewAuctionHouseCat').value = response.data.auction_house_category_id;
-      });
+      loadAuctionHousesCategories(
+        'createNewAuctionHouseCatModal',
+        null,
+        function () {
+          document.getElementById('createNewAuctionHouseCatModal').value =
+            response.data.auction_house_category_id;
+        }
+      );
 
-      // handle success
-      console.log(response);
+      const myModal = new Modal(document.getElementById('exampleModal'), null);
+      myModal.show();
 
       document
         .getElementById('deleteAuctionHouse')
@@ -242,11 +244,15 @@ function editAuctionHouse(button) {
         .addEventListener('click', function () {
           const payLoad = {
             id: +buttonId,
-            title:document.getElementById('editNewAuctionHouseName').value,
+            title: document.getElementById('editNewAuctionHouseName').value,
             type: document.getElementById('editNewAuctionHouseType').value,
-            location:  document.getElementById('editNewAuctionHouseLocation').value,
-            auction_house_category_id: document.getElementById('editNewAuctionHouseCat').value ,
-            description: document.getElementById('editNewAuctionHouseDescription').value,
+            location: document.getElementById('editNewAuctionHouseLocation').value,
+            auction_house_category_id: document.getElementById(
+              'editNewAuctionHouseCat'
+            ).value,
+            description: document.getElementById(
+              'editNewAuctionHouseDescription'
+            ).value,
             auctions: null
           };
           axios
@@ -260,12 +266,7 @@ function editAuctionHouse(button) {
         });
     })
     .catch(function (error) {
-      // handle error
-      // TODO: error handler
-      console.log(error);
-    })
-    .then(function () {
-      console.log('executed');
-      // always executed
+      console.error(error);
+      badToast.show();
     });
 }
