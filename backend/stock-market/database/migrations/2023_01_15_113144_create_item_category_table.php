@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAuctionhouseCategoryTable extends Migration
+class CreateItemCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateAuctionhouseCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('auction_house_category', function (Blueprint $table) {
+        Schema::create('item_category', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('title')->nullable(false)->unique();
-            // define foreign key
-            $table->foreignId('item_category_id')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            $table->string('title')->nullable(false)->unique(true);
+            $table->string('type');
+            
         });
+        DB::statement("ALTER TABLE item_category MODIFY COLUMN type ENUM('Objects', 'Animals', 'Jewelry')");
     }
 
     /**
@@ -31,6 +30,6 @@ class CreateAuctionhouseCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('auction_house_category');
+        Schema::dropIfExists('item_category');
     }
 }

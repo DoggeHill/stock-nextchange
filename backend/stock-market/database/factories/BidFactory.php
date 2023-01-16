@@ -5,9 +5,9 @@ namespace Database\Factories;
 use App\Models\Item;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class AuctionHouseFactory extends Factory
+class BidFactory extends Factory
 {
-    protected $model = Item::class;
+    protected $model = Bid::class;
 
     public function definition(): array
     {

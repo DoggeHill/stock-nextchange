@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Enums\CategoryTypeEnum;
 
-class AuctionHouseCategory extends Model
+class ItemCategory extends Model
 {
     use HasFactory;
     /**
@@ -14,16 +15,18 @@ class AuctionHouseCategory extends Model
      * @description get all posts for the category
      */
 
-    public $table = 'auction_house_category';
+    public $table = 'item_category';
 
-    protected $fillable = ['title', 'item_category_id'];
+    protected $fillable = ['title', 'type'];
 
-    public function posts()
+    public function category()
     {
-        return $this->hasMany(AuctionHouse::class);
+        return $this->hasOne(AuctionHouseCategory::class);
     }
-    public function type()
+    public function item()
     {
-        return $this->hasOne(ItemCategory::class);
+        return $this->hasOne(Item::class);
     }
+
+ 
 }

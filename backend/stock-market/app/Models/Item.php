@@ -15,17 +15,17 @@ class Item extends Model
      * @description get all posts for the category
      */
     public $table = 'item';
-    protected $fillable = ['title', 'type', 'initial_price', 'date_started', 'date_finish'];
+    protected $fillable = ['title', 'initial_price', 'date_started', 'date_finish', 'auction_house_id', 'user_id', 'item_category_id', 'description', 'image'];
 
     public function auctionHouse() {
         return $this->hasOne(AuctionHouse::class);
     }
 
-    public function bid() {
-        return $this->hasMany(Bid:class);
-    }
-
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function type() {
+        return $this->hasOne(ItemCategory::class);
     }
 }

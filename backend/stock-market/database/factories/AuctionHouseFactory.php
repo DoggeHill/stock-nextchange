@@ -12,11 +12,9 @@ class AuctionHouseFactory extends Factory
     public function definition(): array
     {
     	return [
-    	    'title' => $this->faker->sentence,
-            'location' -> $this->faker->sentence,
-            'description'=> $this->faker->sentence,
-            'type'=> $this->faker->sentence,
-            'auctions'=> $this->faker->sentence,
+    	    'title' => $this->faker->sentence(),
+            'description'=> $this->faker->sentence(),
+            'auctions'=> $this->faker->sentence(),
     	];
     }
 }

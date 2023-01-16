@@ -14,7 +14,7 @@ class AuctionHouseCategoryFactory extends Factory
     {
     	return [
     	    'title' => $this->faker->title(),
-            'type' => $this->faker->title()
+            'location' => $this->faker->title()
     	];
     }
 }

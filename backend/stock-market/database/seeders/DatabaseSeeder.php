@@ -13,13 +13,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // create 10 categories
-        \App\Models\AuctionHouseCategory::factory()->count(10)->create()->each(function ($category) {
+        // $auctionHouse = [];
+        // // create 10 auction house categories
+        // \App\Models\AuctionHouseCategory::factory()->count(0)->create()->each(function ($category) {
+        //     // Create 10 auction houses for each category
+        //     $auctionHouse = \App\Models\AuctionHouse::factory()->count(rand(0, 3))->make();
+        //     $category->posts()->saveMany($auctionHouse);
+        // });
 
-            // Create 10 posts for each category
-            $posts = \App\Models\AuctionHouse::factory()->count(10)->make();
-            $category->posts()->saveMany($posts);
-
-        });
+         \App\Models\User::factory()->count(10)->create();
+         
+        
+         //\App\Models\ItemCategory::factory()->count(4)->create();
     }
 }

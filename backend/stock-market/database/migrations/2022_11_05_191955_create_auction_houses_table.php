@@ -15,16 +15,15 @@ class CreateAuctionHousesTable extends Migration
     {
         Schema::create('auction_houses', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('type');
-            $table->string('description');
-            $table->string('location');
-            $table->string('auctions')->nullable();
+            $table->string('title')->nullable(false)->unique(true);
+            $table->string('description')->nullable(true);
+            $table->string('location')->nullable(false);
             $table->timestamps();
             // define foreign key
             $table->foreignId('auction_house_category_id')
                 ->onUpdate('cascade')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+                ->nullable(false);
         });
     }
 

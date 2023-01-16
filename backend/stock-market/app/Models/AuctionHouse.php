@@ -12,7 +12,7 @@ class AuctionHouse extends Model
 
     public $table = 'auction_houses';
 
-    protected $fillable = ['title', 'type', 'auctions', 'location', 'auction_house_category_id', 'description'];
+    protected $fillable = ['title', 'location', 'auction_house_category_id', 'description'];
 
     /**
      * @return BelongsTo

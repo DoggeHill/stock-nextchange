@@ -15,16 +15,26 @@ class CreateItemTable extends Migration
     {
         Schema::create('item', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('type');
-            $table->string('initial_price');
-            $table->date('date_started')->nullable();
-            $table->date('date_finish')->nullable();
+            $table->string('title')->nullable(false)->unique(true);
+            $table->double('initial_price')->nullable(false);
+            $table->date('date_started')->nullable(false);
+            $table->date('date_finish')->nullable(false);
+            $table->string('description')->nullable(false);
+            $table->string('image');
             $table->timestamps();
             // define foreign key
             $table->foreignId('auction_house_id')
                 ->onUpdate('cascade')
-                ->onDelete('cascade');
+                ->onDelete('set null')
+                ->nullable(false);
+                $table->foreignId('user_id')
+                ->onUpdate('cascade')
+                ->onDelete('set null')
+                ->nullable(false);
+                $table->foreignId('item_category_id')
+                ->onUpdate('cascade')
+                ->onDelete('cascade')
+                ->nullable(false);
         });
     }
 

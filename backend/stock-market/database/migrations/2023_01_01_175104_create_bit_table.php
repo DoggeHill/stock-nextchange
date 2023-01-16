@@ -13,14 +13,19 @@ class CreateBitTable extends Migration
      */
     public function up()
     {
-        Schema::create('bit', function (Blueprint $table) {
+        Schema::create('bid', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->double('price', 15, 8);
-            $table->date('date');
+            $table->double('price', 15, 8)->nullable(false);
+            $table->date('date')->nullable(false);
             $table->foreignId('item_id')
+                ->onUpdate('cascade')
+                ->onDelete('cascade')
+                ->nullable(false);
+            $table->foreignId('user_id')
             ->onUpdate('cascade')
-            ->onDelete('cascade');
+            ->onDelete('cascade')
+            ->nullable(false);
         });
     }
 

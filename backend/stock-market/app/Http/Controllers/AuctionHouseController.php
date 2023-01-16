@@ -5,67 +5,92 @@ namespace App\Http\Controllers;
 use App\Models\AuctionHouse;
 use App\Models\AuctionHouseCategory;
 use Illuminate\Http\Request;
-
+use Illuminate\Validation\ValidationException;
 class AuctionHouseController extends Controller
 {
 
-    public function test(){
-        return "TEST PASSED";   
+    //* Test
+    public function test()
+    {
+        return "TEST PASSED";
     }
 
-    public function index(){
+    //* Auction house 
+    public function list()
+    {
         return AuctionHouse::all();
     }
 
-    public function cat(){
-        return AuctionHouseCategory::all();
-    }
-
-    public function getAuctionHouseById($id){
+    public function getAuctionHouseById($id)
+    {
         return AuctionHouse::find($id);
     }
 
-    public function deleteAuctionHouse($id){
+    public function deleteAuctionHouse($id)
+    {
         $house = AuctionHouse::find($id);
-        if($house) {
+        if ($house) {
             return $house->delete($house);
         } else {
-            return response()->json("Wrong id!" . $request, 400);
+            return response()->json("Auction house does not exist id!" . $id, 400);
         }
     }
 
-    public function findById($id){
+    public function createModifyAuctionHouse(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'numeric',
+            'title' => 'required|max:255|unique',
+            'description' => 'max:2555',
+            'location' => 'required|max:255',
+            'auction_house_category_id' => 'exists:App\Models\AuctionHouseCategory,id',
+        ]);
+
+        $id = number_format($request->id);
+        if (isset($id) && $id != 0) {
+            $auctionHouse = AuctionHouse::find($id);
+            $auctionHouse->title = $request->title;
+            $auctionHouse->type = $request->type;
+            $auctionHouse->location = $request->location;
+            $auctionHouse->description = $request->description;
+            $auctionHouse->auction_house_category_id = $request->auction_house_category_id;
+
+            $auctionHouse->save();
+            return response()->json($auctionHouse, 201);
+        }
+        $auctionHouse = AuctionHouse::create($request->all());
+        return response()->json($auctionHouse, 201);
+    }
+
+    //* Auction house category
+    public function listCat()
+    {
+        return AuctionHouseCategory::all();
+    }
+
+    public function getAuctionHouseCatById($id)
+    {
         return AuctionHouseCategory::find($id);
     }
 
-    public function createAuctionHouse(Request $request){
-        if(! is_numeric($request->auction_house_category_id)){
-            $resposne = (object) ['message' => "Id must be numeric!"];
-            return response()->json($response, 400);    
-        }
-        else if(is_null($request->title)) {
-            $resposne = (object) ['message' => "Title is null"];
-            return response()->json($response, 400);
-        }
+    public function createAuctionHouseCat(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'numeric',
+            'title' => 'required|max:255|unique',
+            'item_category_id' => 'exists:App\Models\ItemCategory,id',
+        ]);
+        $auctionHouse = AuctionHouseCategory::create($request->all());
+        return response()->json($auctionHouse, 201);
+    }
 
-        else if(! strlen($request->description) > 2000){
-            $resposne = (object) ['message' => "Description is too long!"];
-            return response()->json($response, 400);
+    public function deleteAuctionHouseCat($id)
+    {
+        $house = AuctionHouseCategory::find($id);
+        if ($house) {
+            return $house->delete($house);
+        } else {
+            return response()->json("Auction house category does not exist id!" . $id, 400);
         }
-
-        $id = number_format($request->id);
-        if(isset($id) && $id !=0){
-            $acutionHouse = AuctionHouse::find($id);
-            $acutionHouse->title = $request->title;
-            $acutionHouse->type = $request->type;
-            $acutionHouse->location = $request->location;
-            $acutionHouse->description = $request->description;
-            $acutionHouse->auction_house_category_id = $request->auction_house_category_id;
-
-            $acutionHouse->save();
-            return response()->json($acutionHouse, 201);
-        }
-        $acutionHouse = AuctionHouse::create($request->all());
-        return response()->json($acutionHouse, 201);
     }
 }
