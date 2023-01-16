@@ -16,7 +16,7 @@ class ItemController extends Controller
     }
 
     public function list(){
-       return Item::all();   
+       return Item::with('user')->get();   
     }   
 
     public function findById($id) {

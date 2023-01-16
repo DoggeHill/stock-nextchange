@@ -40,7 +40,7 @@ class AuctionHouseController extends Controller
     {
         $this->validate($request, [
             'id' => 'numeric',
-            'title' => 'required|max:255|unique',
+            'title' => 'required|max:255|unique:auction_house_category',
             'description' => 'max:2555',
             'location' => 'required|max:255',
             'auction_house_category_id' => 'exists:App\Models\AuctionHouseCategory,id',
@@ -77,7 +77,7 @@ class AuctionHouseController extends Controller
     {
         $this->validate($request, [
             'id' => 'numeric',
-            'title' => 'required|max:255|unique',
+            'title' => 'required|max:255|unique:auction_houses',
             'item_category_id' => 'exists:App\Models\ItemCategory,id',
         ]);
         $auctionHouse = AuctionHouseCategory::create($request->all());

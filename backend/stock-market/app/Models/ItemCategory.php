@@ -27,6 +27,4 @@ class ItemCategory extends Model
     {
         return $this->hasOne(Item::class);
     }
-
- 
 }

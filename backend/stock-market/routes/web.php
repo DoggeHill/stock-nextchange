@@ -39,7 +39,7 @@ $router->group(['prefix' => '/api/user'], function () use ($router) {
 $router->group(['prefix' => '/api/auction'], function () use ($router) {
     $router->get('test', 'AuctionHouseController@test');
 
-    $router->get('auctionsHouses', 'AuctionHouseController@list');
+    $router->get('auctionHouse', 'AuctionHouseController@list');
     $router->get('getAuctionHouseById/{id}', 'AuctionHouseController@getAuctionHouseById');
     $router->put('auctionHouse', 'AuctionHouseController@createModifyAuctionHouse');
     $router->delete('deleteAuctionHouse/{id}', 'AuctionHouseController@deleteAuctionHouse');
@@ -66,6 +66,8 @@ $router->group(['prefix' => '/api/bid'], function () use ($router) {
 
     $router->get('list', 'BidController@list');
     $router->get('findByUserId/{id}', 'BidController@findByUserId');
+    $router->get('findByItemId/{id}', 'BidController@findByItemId');
+    $router->get('findMaxByItemId/{id}', 'BidController@findMaxByItemId');
     $router->post('createBid', 'BidController@createItem');
     $router->post('stats', 'BidController@stats');
     $router->post('statsByUser/{id}', 'BidController@statsByUser');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AuctionHouse;
 use App\Models\Item;
 use App\Models\User;
+use App\Models\Bid;
 use App\Models\AuctionHouseCategory;
 use Illuminate\Http\Request;
 
@@ -20,6 +21,10 @@ class BidController extends Controller
 
     public function findByItemId($id) {
         return Bid::select('*')->where('item_id', $id)->get();
+    }
+
+    public function findMaxByItemId($id) {
+        return Bid::select('*')->where('item_id', $id)->max('price')->get();
     }
 
     public function findByUserId($id){

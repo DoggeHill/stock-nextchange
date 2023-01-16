@@ -16,7 +16,7 @@ class CreateAuctionhouseCategoryTable extends Migration
         Schema::create('auction_house_category', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('title')->nullable(false)->unique();
+            $table->string('title')->nullable(false)->unique(true);
             // define foreign key
             $table->foreignId('item_category_id')
                 ->onUpdate('cascade')
