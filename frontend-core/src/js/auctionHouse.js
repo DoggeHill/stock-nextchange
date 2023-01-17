@@ -12,6 +12,8 @@ const urls = {
 };
 
 export function loadAuctionHouses() {
+  document.getElementById('userName').innerHTML = localStorage.getItem('userTitle');
+  document.getElementById('userName').innerHTML = localStorage.getItem('userEmail');
   // listeners
   listeners();
 

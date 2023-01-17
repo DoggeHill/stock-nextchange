@@ -66,13 +66,13 @@ $_red: #fa6204 !default;
   &--plus,
   &--minus {
     width: 6rem;
-    height: 6rem;
+    height: 4rem;
     border-radius: 9px;
     &::after {
       position: relative;
       display: inline-block;
       font-weight: bold;
-      font-size: 4rem;
+      font-size: 2rem;
     }
   }
 

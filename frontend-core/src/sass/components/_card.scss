@@ -84,13 +84,13 @@
       color: a.$light-grey;
     }
     .bidsButtons {
-      margin-top: 2.5rem;
-      margin-bottom: 2.5rem;
+      margin: 2.5rem;
       display: flex;
       justify-content: center;
-    }
-    .bnt {
-      margin: 3rem;
+
+      .btn {
+        margin: 3rem;
+      }
     }
     .timer {
       color: a.$mid-grey;

@@ -54,7 +54,10 @@ function initData() {
     statCount.innerHTML = response.data.count;
   });
 
-  ///itemImage.innerHTML = data.data.image;
+  document.getElementById('userName').innerHTML =
+    localStorage.getItem('userTitle');
+  document.getElementById('userName').innerHTML =
+    localStorage.getItem('userEmail');
 
   axios
     .get(urls['itemByUserId'] + userId)

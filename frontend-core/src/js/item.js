@@ -7,7 +7,6 @@ import { createChart } from './chart';
  */
 
 // vars
-// TODO:
 let auctionHouseId = 1;
 let chart;
 
@@ -85,7 +84,8 @@ function initData() {
   const itemCat = document.getElementById('auctionHouseCategory');
   const image = document.getElementById('auctionHouseImage');
 
-  console.log(image);
+  document.getElementById('userName').innerHTML = localStorage.getItem('userTitle');
+  document.getElementById('userName').innerHTML = localStorage.getItem('userEmail');
 
   axios
     .get(urls['findAuctionHouseById'] + auctionHouseId)

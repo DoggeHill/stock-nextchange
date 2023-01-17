@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+
 
 class UserController extends Controller
 {
@@ -30,9 +32,9 @@ class UserController extends Controller
         return User::find($id);
     }
 
-    public function findByEmail($email)
+    public function findByEmail(Request $request)
     {
-        return User::where('email',$email) -> first();
+        return User::where('email', $request->email) -> first();
     }
 
 }

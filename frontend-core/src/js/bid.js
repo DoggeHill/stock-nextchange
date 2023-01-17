@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { Modal, Toast } from 'bootstrap';
 import { Grid } from 'gridjs';
 
 /**
@@ -20,47 +19,77 @@ const urls = {
   itemById: prefixItem + '/findById/',
   bidByItemId: prefixBid + '/findByItemId/',
   maxBidByItemId: prefixBid + '/findMaxByItemId/',
-  itemCatById: prefixItem + '/findItemCategoryById/'
+  itemCatById: prefixItem + '/findItemCategoryById/',
+  createBid: prefixBid + '/createBid/'
 };
 
-const goodToast = new Toast(document.getElementById('toastGood'), null);
-const badToast = new Toast(document.getElementById('toastBad'), null);
+const itemSelect = document.getElementById('itemSelect');
+let itemId = localStorage.getItem('itemId') || 1;
 
 let itemArr = [];
 
 const itemTimer = document.getElementById('itemTimer');
 
-export function loadItemById(id) {
+export function initLoadItem() {
   window.addEventListener(
     'load',
     function () {
+      const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      };
+
       axios
-        .get(urls['itemById'] + id)
+        .get(urls['itemList'])
         .then(function (response) {
-          initData(response);
+          for (const item of response.data) {
+            itemSelect.add(new Option(item.title, item.id));
+          }
+          itemSelect.addEventListener('change', function () {
+            itemId = this.value;
+            localStorage.setItem('itemId', itemId);
+            window.location.reload();
+          });
+          loadItemById();
         })
         .catch(function (error) {
           console.error(error);
-          badToast.show();
         })
         .then(function () {
-          goodToast.show();
+          document.getElementById('userName').innerHTML =
+            localStorage.getItem('userTitle');
+          document.getElementById('userName').innerHTML =
+            localStorage.getItem('userEmail');
         });
     },
     false
   );
 }
 
+export function loadItemById() {
+  axios
+    .get(urls['itemById'] + itemId)
+    .then(function (response) {
+      initData(response);
+    })
+    .catch(function (error) {
+      console.error(error);
+    })
+    .then(function () {});
+}
+
 function initData(data) {
   let owner = document.getElementById('itemOwner');
   let dateStarted = document.getElementById('itemDateStarted');
   let dateFinish = document.getElementById('itemDateFinish');
-  let itemImage = document.getElementById('itemImage');
+  let itemImage = document.getElementById('item_image');
   let itemInitialPrice = document.getElementById('itemInitialPrice');
+  let itemTitle = document.getElementById('itemTitle');
 
   owner.innerHTML = data.data.user_id;
   dateStarted.innerHTML = data.data.date_started;
   dateFinish.innerHTML = data.data.date_finish;
+  itemImage.src = data.data.image;
+  itemTitle.innerHTML = data.data.title;
 
   itemInitialPrice.innerHTML = data.data.initial_price;
   ///itemImage.innerHTML = data.data.image;
@@ -72,6 +101,36 @@ function initData(data) {
   let itemBidMinus = document.getElementById('itemBidMinus');
   let itemBidSubmit = document.getElementById('itemBidSubmit');
   let itemBidPrice = document.getElementById('itemBidPrice');
+
+  itemBidSubmit.addEventListener(
+    'click',
+    function () {
+      let bodyFormData = new FormData();
+      bodyFormData.append(
+        'price',
+        +document.getElementById('itemBidPrice').innerHTML
+      );
+      bodyFormData.append('item_id', itemId);
+      bodyFormData.append('user_id', 1);
+      bodyFormData.append(
+        'date',
+        new Date().toISOString().slice(0, 19).replace('T', ' ')
+      );
+
+      axios({
+        method: 'post',
+        url: urls['createBid'],
+        data: bodyFormData,
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
+        .then(function (response) {})
+        .catch(function (error) {
+          console.error(error);
+        })
+        .then(function () {});
+    },
+    false
+  );
 
   itemBidPlus.addEventListener(
     'click',
@@ -127,7 +186,8 @@ function countDownTimer(dt, id) {
     if (distance < 0) {
       clearInterval(timer);
       document.getElementById('itemBidSubmit').remove();
-      document.getElementById(id).innerHTML = 'EXPIRED!';
+      document.getElementById(id).innerHTML =
+        'EXPIRED!<br><h2 class="h2">Winner is Rodolfo Larson</h2>';
 
       return;
     }
@@ -146,6 +206,7 @@ function countDownTimer(dt, id) {
 }
 
 function loadItemBids() {
+  let totalPrice = 0;
   axios
     .get(urls['bidList'])
     .then(function (response) {
@@ -154,16 +215,15 @@ function loadItemBids() {
         let dto = {
           price: item.price
         };
-
+        totalPrice += item.price;
         itemArr.push(dto);
       }
+      document.getElementById('itemTotalPrice').innerHTML = totalPrice;
     })
     .catch(function (error) {
       console.error(error);
-      badToast.show();
     })
     .then(function () {
-      goodToast.show();
       loadDataGrid();
     });
 
@@ -208,32 +268,26 @@ function loadDataGrid() {
   }, 5000);
 }
 
-function refreshBids(id) {
+function refreshBids() {
   axios
-    .get(urls['bidByItemId'] + id)
+    .get(urls['bidByItemId'] + itemId)
     .then(function (response) {
       console.log(response);
     })
     .catch(function (error) {
       console.error(error);
-      badToast.show();
     })
-    .then(function () {
-      goodToast.show();
-    });
+    .then(function () {});
 
   axios
-    .get(urls['maxBidByItemId'] + id)
+    .get(urls['maxBidByItemId'] + itemId)
     .then(function (response) {
       console.log(response);
     })
     .catch(function (error) {
       console.error(error);
-      badToast.show();
     })
-    .then(function () {
-      goodToast.show();
-    });
+    .then(function () {});
 }
 
 function refreshBidsCaller(id) {

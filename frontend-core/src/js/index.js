@@ -19,7 +19,7 @@ import '../sass/main.scss';
 import { loadAuctionHouses } from './auctionHouse';
 import { loadAuctionHousesDetail } from './item';
 import { loadUserDashboard } from './user';
-import { loadItemById } from './bid';
+import { initLoadItem } from './bid';
 import { createParticles } from './particle';
 import { header } from './header';
 
@@ -28,10 +28,6 @@ import { createForms } from './form';
 createForms();
 
 //? Global vars
-window.token = '';
-window.userId = '';
-window.userEmail = '';
-window.userTitle = '';
 
 const route = document.getElementsByTagName('body')[0].id;
 
@@ -40,7 +36,8 @@ if (route !== 'landingPage') {
   document.getElementById('userEmail').innerHTML = window.userEmail;
 }
 
-//if (window.token == '') window.location = "home.html";
+if (!window.location.href.includes('home') && !localStorage.getItem('token'))
+  window.location = 'home.html';
 
 switch (route) {
   case 'landingPage':
@@ -89,13 +86,42 @@ switch (route) {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
         .then(function (response) {
-          window.token = response.data.access_token;
+          localStorage.setItem('token', response.data.access_token);
           getUserCredentials(document.getElementById('login-email').value);
         })
         .catch(function (error) {
           console.error(error);
         })
-        .then(function () { });
+        .then(function () {});
+    });
+
+    let btnRegister = document.getElementById('register');
+    btnRegister.addEventListener('click', function (e) {
+      let bodyFormData = new FormData();
+      bodyFormData.append(
+        'email',
+        document.getElementById('signup-email').value
+      );
+      bodyFormData.append(
+        'password',
+        document.getElementById('signup-password').value
+      );
+
+      axios({
+        method: 'post',
+        url: 'http://127.0.0.1:8000/api/register',
+        data: bodyFormData,
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
+        .then(function (response) {
+          localStorage.setItem('token', response.data.access_token);
+          //getUserCredentials(document.getElementById('login-email').value);
+          window.location = 'user.html';
+        })
+        .catch(function (error) {
+          console.error(error);
+        })
+        .then(function () {});
     });
 
     break;
@@ -107,20 +133,27 @@ switch (route) {
     loadAuctionHousesDetail();
     break;
   case 'auctonBid':
-    loadItemById(1);
+    initLoadItem(1);
     break;
   case 'user':
     loadUserDashboard();
     break;
+  case 'itemDetail':
+    initLoadItem();
+    break;
 }
 
-function getUserCredentails(email) {
-  axios
-    .get('http://127.0.0.1:8000/user/findByEmail/' + email)
-    .then(function (response) {
-      window.userId = response.data.userId;
-      window.userEmail = response.data.userEmail;
-      window.userTitle = response.data.userTitle;
-    });
-    window.location = 'user.html';
+function getUserCredentials(email) {
+  let bodyFormData = new FormData();
+  bodyFormData.append('email', email);
+  axios({
+    method: 'get',
+    url: 'http://127.0.0.1:8000/api/user/findByEmail/',
+    data: bodyFormData,
+    headers: { 'Content-Type': 'multipart/form-data' }
+  }).then(function (response) {
+    localStorage.setItem('userId', response.data.userId);
+    localStorage.setItem('userEmail', response.data.userEmail);
+    localStorage.setItem('userTitle', response.data.userTitle);
+  });
 }

@@ -33,18 +33,17 @@ $router->group(['prefix' => '/api/user'], function () use ($router) {
     $router->get('test', 'UserController@test');
 
     $router->get('list', 'UserController@list');
-    $router->get('findByEmail/{email}', 'UserController@findByEmail');
+    $router->get('findByEmail', 'UserController@findByEmail');
     $router->get('findById/{id}', 'UserController@findById');
 });
 
 $router->group(['prefix' => '/api/auction'], function () use ($router) {
     $router->get('test', 'AuctionHouseController@test');
-
     $router->get('auctionHouse', 'AuctionHouseController@list');
     $router->get('getAuctionHouseById/{id}', 'AuctionHouseController@getAuctionHouseById');
     $router->post('auctionHouse', 'AuctionHouseController@createModifyAuctionHouse');
     $router->get('deleteAuctionHouse/{id}', 'AuctionHouseController@deleteAuctionHouse');
-
+    
     $router->get('auctionsHouseCat', 'AuctionHouseController@listCat');
     $router->get('auctionsHouseCat/{id}', 'AuctionHouseController@getAuctionHouseCatById');
     $router->post('auctionHouseCat', 'AuctionHouseController@createAuctionHouseCat');
@@ -53,8 +52,10 @@ $router->group(['prefix' => '/api/auction'], function () use ($router) {
 
 $router->group(['prefix' => '/api/item'], function () use ($router) {
     $router->get('test', 'ItemController@test');
-
-    $router->get('list', 'ItemController@list');
+    
+    $router->group(['middleware' => 'auth'], function () use ($router) {
+        $router->get('list', 'ItemController@list');
+    });
     $router->get('findById/{id}', 'ItemController@findById');
     $router->get('findByUserId/{id}', 'ItemController@findByUserId');
     $router->get('findByAuctionHouseId/{id}', 'ItemController@findByAuctionHouseId');
