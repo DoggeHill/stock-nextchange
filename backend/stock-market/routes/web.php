@@ -54,8 +54,8 @@ $router->group(['prefix' => '/api/item'], function () use ($router) {
     $router->get('test', 'ItemController@test');
     
     $router->group(['middleware' => 'auth'], function () use ($router) {
-        $router->get('list', 'ItemController@list');
     });
+    $router->get('list', 'ItemController@list');
     $router->get('findById/{id}', 'ItemController@findById');
     $router->get('findByUserId/{id}', 'ItemController@findByUserId');
     $router->get('findByAuctionHouseId/{id}', 'ItemController@findByAuctionHouseId');
