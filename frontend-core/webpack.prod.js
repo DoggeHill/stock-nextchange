@@ -48,24 +48,48 @@ module.exports = merge(common, {
     new HtmlWebpackPlugin({
       appMountId: 'app',
       // Output
-      filename: path.join(dir, 'dist/index.html'),
+      filename: path.join(dir, 'dist/auction-house-list.html'),
       // Template
-      template: path.join(dir, 'src/index.html')
+      template: path.join(dir, 'src/auction-house-list.html'),
+      minify: false
     }),
     new HtmlWebpackPlugin({
       appMountId: 'app',
       // Output
-      filename: path.join(dir, 'dist/services.html'),
+      filename: path.join(dir, 'dist/auction-house.html'),
       // Template
-      template: path.join(dir, 'src/services.html')
+      template: path.join(dir, 'src/auction-house.html'),
+      minify: false
+
     }),
     new HtmlWebpackPlugin({
       appMountId: 'app',
       // Output
-      filename: path.join(dir, 'dist/portfolio.html'),
+      filename: path.join(dir, 'dist/home.html'),
       // Template
-      template: path.join(dir, 'src/portfolio.html')
+      template: path.join(dir, 'src/home.html'),
+      minify: false
+
     }),
+    new HtmlWebpackPlugin({
+      appMountId: 'app',
+      // Output
+      filename: path.join(dir, 'dist/item.html'),
+      // Template
+      template: path.join(dir, 'src/item.html'),
+      minify: false
+
+    }),
+    new HtmlWebpackPlugin({
+      appMountId: 'app',
+      // Output
+      filename: path.join(dir, 'dist/user.html'),
+      // Template
+      template: path.join(dir, 'src/user.html'),
+      minify: false
+
+    }),
+
     // Optimalize stylesheets
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash:8].css',

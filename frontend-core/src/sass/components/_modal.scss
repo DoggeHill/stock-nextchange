@@ -1,0 +1,16 @@
+@use '../abstracts' as a;
+
+.modal {
+  .modal-content {
+    background-color: a.$panel-color;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    h3 {
+      color: a.$light-grey;
+    }
+  }
+  .model-header{
+    border: none;
+    padding-bottom: 3rem;
+  }
+}

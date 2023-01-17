@@ -74,12 +74,15 @@ class BidController extends Controller
     }
 
     public function stats() {
-        $max = DB::table('bids')->max('price'); 
-        $min = DB::table('bids')->min('price'); 
-        $cunt = DB::table('bids')->count();
+        $max = Bid::select('bids')->max('price'); 
+        $min = Bid::select('bids')->min('price'); 
+        $cunt = Bid::select('bids')->count();
 
-        $arr = array();
-        array_push($arr, $max, $min, $cunt);
+        $arr = array(
+            "min" => $min,
+            "max" => $max,
+            "count" => $cunt,
+        );
 
         return response()->json($arr, 201);
     }
@@ -92,12 +95,15 @@ class BidController extends Controller
         if ($validator->fails())
             abort(404);
             
-        $max = DB::table('bids')->max('price')->where('user_id', $id); 
-        $min = DB::table('bids')->min('price')->where('user_id', $id); 
-        $cunt = DB::table('bids')->count()->where('user_id', $id);
+        $max = Bid::select('bids')->max('price')->where('user_id', $id); 
+        $min = Bid::select('bids')->min('price')->where('user_id', $id); 
+        $cunt = Bid::select('bids')->count()->where('user_id', $id);
 
-        $arr = array();
-        array_push($arr, $max, $min, $cunt);
+        $arr = array(
+            "min" => $min,
+            "max" => $max,
+            "count" => $cunt,
+        );
 
         return response()->json($arr, 201);
     }

@@ -73,6 +73,12 @@
   &--small{
     padding-bottom: 0;
   }
+
+  .glide {
+    svg{
+      color: a.$light-grey;
+    }
+  }
 }
 
 // particles js

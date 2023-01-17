@@ -19,6 +19,7 @@ class CreateAuctionHousesTable extends Migration
             $table->string('description')->nullable(true);
             $table->string('location')->nullable(false);
             $table->timestamps();
+            $table->string('image');
             // define foreign key
             $table->foreignId('auction_house_category_id')
                 ->onUpdate('cascade')

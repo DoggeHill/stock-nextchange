@@ -7,8 +7,9 @@
 @use '../abstracts' as a;
 
 $_border-color: #000 !default;
-$_background-color: #fff !default;
-$_font-color: rgb(14, 114, 107) !default;
+$_background-color: a.$panel-color-dark !default;
+$_font-color: a.$light-grey !default;
+$_font-color_medium: a.$mid-grey !default;
 $_error-color: #d11818 !default;
 $_right-color: #bada55 !default;
 $_brand-color: #987654 !default;
@@ -22,18 +23,32 @@ input[type='tel'],
 input[type='number'],
 input[type='password'],
 textarea {
-  _background-color: $_background-color;
+  background-color: $_background-color;
   border: solid 1px $_border-color;
   border-radius: 4px;
   color: $_font-color;
   display: block;
-  height: 4.6rem;
+  height: 3.6rem;
   margin-bottom: 0;
   padding: 1.1rem 1.8rem;
   position: relative;
   width: 100%;
   z-index: 1;
+  margin-bottom: 2rem;
 }
+
+.select2 {
+  height: 4rem;
+  margin-top: 5px;
+  margin-bottom: 3rem;
+  min-width: 8rem;
+}
+
+.form-group {
+  position: relative;
+}
+
+
 
 /**
 ** Label form styling
@@ -46,9 +61,9 @@ input[type='password'] + label,
 .password-input + label,
 textarea + label,
 .select2-container + label {
-  _background-color: $_background-color;
+  background-color: $_background-color;
   border-radius: 7px;
-  font-size: 1.675rem;
+  font-size: 0.875rem;
   left: 1rem;
   letter-spacing: initial;
   line-height: 1;
@@ -59,6 +74,7 @@ textarea + label,
   transform: translateY(-50%);
   transition: 0.2s;
   z-index: 1;
+  margin-bottom: 2rem;
 
   span {
     color: currentColor;
@@ -76,8 +92,9 @@ input[type='password'],
 input[type='tel'],
 .select2-container {
   &:placeholder-shown:not(:focus) + label {
-    _background-color: transparent;
-    color: $_font-color;
+    background-color: transparent;
+    font-size: 1rem;
+    color: $_font-color_medium;
     left: 1rem;
     opacity: 1;
     top: 50%;
@@ -108,8 +125,8 @@ textarea {
 
     + label,
     .password-input + label {
-      color: $_right-color;
-      font-size: 1.325rem;
+      color: $_font-color;
+      font-size: 1rem;
     }
   }
 }
@@ -121,7 +138,7 @@ textarea {
   margin-bottom: 0;
 
   &:placeholder-shown:not(:focus) + label {
-    _background-color: transparent;
+    background-color: $_background-color;
     left: 1rem;
     opacity: 1;
     top: 22px;
@@ -153,7 +170,6 @@ input:-webkit-autofill {
 :-moz-autofill-preview {
   filter: unset;
 }
-
 
 /**
 ** Override basic radio button appearance

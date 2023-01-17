@@ -1,9 +1,6 @@
 @use '../abstracts' as a;
 
-
 .auction_house {
- 
-
   &--add-new {
     order: 555;
     height: 20rem;
@@ -18,8 +15,12 @@
     }
   }
 
-  &--description {
+  .photo{
+    border-radius: 8px;
+    overflow: hidden;
+  }
 
+  &--description {
   }
   img {
     width: 100%;
@@ -31,16 +32,21 @@
   }
   &__heading {
     margin: 0;
+    margin-bottom: 1rem;
     font-weight: 500;
     color: a.$brand-color;
     font-size: 2rem;
+    @include a.on-event {
+      color: a.$light-grey;
+    }
   }
 
   &__type,
   &__location,
   &__description {
     display: block;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    line-height: 1.8;
   }
   &__button {
     display: block;

@@ -19,6 +19,7 @@ $_black-hover: #aa8 !default;
 
 $_green: #70b944 !default;
 $_orange: #ee9e09 !default;
+$_red: #fa6204 !default;
 
 // -----------------------------------------------------------------------------
 //? Regular button
@@ -26,14 +27,15 @@ $_orange: #ee9e09 !default;
 
 %btn-regular {
   font-size: 1.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.7rem 1.3rem;
   box-shadow: none;
-  border-radius: 555;
   border: 1px solid $_regular;
   color: $_regular;
+  border-radius: 8px;
+  background-color: $_regular-hover;
   @include a.on-event {
-    background-color: $_regular-hover;
-    color: currentColor;
+    background-color: $_black;
+    color: $_regular;
     text-decoration: none;
     cursor: pointer;
   }
@@ -44,6 +46,12 @@ $_orange: #ee9e09 !default;
 
   &--orange {
     background-color: $_orange;
+    @include a.on-event {
+      background-color: $_black-hover;
+    }
+  }
+  &--orange {
+    background-color: $_red;
     @include a.on-event {
       background-color: $_black-hover;
     }

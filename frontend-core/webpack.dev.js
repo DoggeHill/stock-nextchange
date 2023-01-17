@@ -36,7 +36,7 @@ module.exports = merge(common, {
       // Output
       filename: path.join(dir, 'dist/index.html'),
       // Template
-      template: path.join(dir, 'src/auctionHouse.html')
+      template: path.join(dir, 'src/auction-house.html')
     })
   ],
   devServer: {

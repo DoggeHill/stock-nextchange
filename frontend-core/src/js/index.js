@@ -1,469 +1,126 @@
-// Vendor import
-//TODO: import individually
-import 'bootstrap';
+/* eslint-disable no-case-declarations */
 
-import homeImage from '../img/exchange.png';
+//? Vendor import
+import * as bootstrap from 'bootstrap';
 import axios from 'axios';
+import Glide from '@glidejs/glide';
+import 'particles.js/particles';
+import FsLightbox from 'fslightbox';
 
-//import 'bootstrap/js/dist/dropdown';
+//* Images
+import logo from '../img/logo.svg';
+import homeImage from '../img/exchange.png';
+// logo
+document.getElementById('logo').src = logo;
 
-// Images
-import '../img/logo.svg';
-import distributor from '../img/distributor.svg';
-import individual from '../img/individualne-jednanie.svg';
-import experience from '../img/skusenosti.svg';
-
-// Stylesheets
+//* Stylesheets
 import '../sass/main.scss';
 
-// Modules
-//import { hamburgerMenu } from './hamburger';
-//hamburgerMenu();
-
-import { createChart } from './chart';
-//createChart();
-
-let payload = { email: 'satterfield.patsy@example.net', password: '123456' };
-let btnLogin = document.getElementById('login');
-btnLogin.addEventListener('click', function (e) {
-  axios
-    .post('http://127.0.0.1:8000/api/login', payload)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.error(error);
-    })
-    .then(function () { });
-});
-
-//* Auction house
-import { loadAuctionHouses, loadAuctionHousesCategories } from './auctionHouse';
-// do not load on all the pages
-if (false && location.pathname.split('/').slice(-1) != 'auctionHouse') {
-  loadAuctionHouses();
-  loadAuctionHousesCategories('categorySelect');
-}
-
-//* Item
-import { loadAuctionHouseDetail } from './item';
-// TODO: do not load on all the pages
-//loadAuctionHouseDetail();
-
-//* Bid
+import { loadAuctionHouses } from './auctionHouse';
+import { loadAuctionHousesDetail } from './item';
+import { loadUserDashboard } from './user';
 import { loadItemById } from './bid';
-// TODO: do not load on all the pages
-loadItemById(1);
+import { createParticles } from './particle';
+import { header } from './header';
 
 //* General forms
 import { createForms } from './form';
 createForms();
 
-//* Particles landing page
-import { createParticles } from './particle';
+//? Global vars
+window.token = '';
+window.userId = '';
+window.userEmail = '';
+window.userTitle = '';
 
-import 'particles.js/particles';
-const particlesJS = window.particlesJS;
-console.log(createParticles());
+const route = document.getElementsByTagName('body')[0].id;
 
-particlesJS(createParticles());
-
-const homeImg = document.getElementById('stock-image');
-homeImg.src = homeImage;
-
-const distributorImg = document.getElementById('distributor-img');
-distributorImg.src = distributor;
-
-var toastElList = [].slice.call(document.querySelectorAll('.toast'));
-var toastList = toastElList.map(function (toastEl) {
-  return new bootstrap.Toast(toastEl, option);
-});
-
-import Glide from '@glidejs/glide';
-
-var glide = new Glide('#intro', {
-  type: 'carousel',
-  perView: 4,
-  focusAt: 'center',
-  breakpoints: {
-    800: {
-      perView: 2
-    },
-    480: {
-      perView: 1
-    }
-  }
-});
-
-glide.mount();
-
-/**
- * Header
- */
-function globalNavDropdowns(e) {
-  var t = this;
-  (this.container = document.querySelector(e)),
-    (this.root = this.container.querySelector('.navRoot')),
-    (this.primaryNav = this.root.querySelector('.navSection.primary')),
-    (this.primaryNavItem = this.root.querySelector(
-      '.navSection.primary .rootLink:last-child'
-    )),
-    (this.secondaryNavItem = this.root.querySelector(
-      '.navSection.secondary .rootLink:first-child'
-    )),
-    this.checkCollision(),
-    window.addEventListener('load', this.checkCollision.bind(this)),
-    window.addEventListener('resize', this.checkCollision.bind(this)),
-    this.container.classList.add('noDropdownTransition'),
-    (this.dropdownBackground = this.container.querySelector(
-      '.dropdownBackground'
-    )),
-    (this.dropdownBackgroundAlt = this.container.querySelector(
-      '.alternateBackground'
-    )),
-    (this.dropdownContainer =
-      this.container.querySelector('.dropdownContainer')),
-    (this.dropdownArrow = this.container.querySelector('.dropdownArrow')),
-    (this.dropdownRoots = Strut.queryArray('.hasDropdown', this.root)),
-    (this.dropdownSections = Strut.queryArray(
-      '.dropdownSection',
-      this.container
-    ).map(function (e) {
-      return {
-        el: e,
-        name: e.getAttribute('data-dropdown'),
-        content: e.querySelector('.dropdownContent')
-      };
-    }));
-  var n = window.PointerEvent
-    ? {
-      end: 'pointerup',
-      enter: 'pointerenter',
-      leave: 'pointerleave'
-    }
-    : {
-      end: 'touchend',
-      enter: 'mouseenter',
-      leave: 'mouseleave'
-    };
-  this.dropdownRoots.forEach(function (e, r) {
-    e.addEventListener(n.end, function (n) {
-      n.preventDefault(), n.stopPropagation(), t.toggleDropdown(e);
-    }),
-      e.addEventListener(n.enter, function (n) {
-        if (n.pointerType == 'touch') return;
-        t.stopCloseTimeout(), t.openDropdown(e);
-      }),
-      e.addEventListener(n.leave, function (e) {
-        if (e.pointerType == 'touch') return;
-        t.startCloseTimeout();
-      });
-  }),
-    this.dropdownContainer.addEventListener(n.end, function (e) {
-      e.stopPropagation();
-    }),
-    this.dropdownContainer.addEventListener(n.enter, function (e) {
-      if (e.pointerType == 'touch') return;
-      t.stopCloseTimeout();
-    }),
-    this.dropdownContainer.addEventListener(n.leave, function (e) {
-      if (e.pointerType == 'touch') return;
-      t.startCloseTimeout();
-    }),
-    document.body.addEventListener(n.end, function (e) {
-      Strut.touch.isDragging || t.closeDropdown();
-    });
+if (route !== 'landingPage') {
+  document.getElementById('userName').innerHTML = window.userTitle;
+  document.getElementById('userEmail').innerHTML = window.userEmail;
 }
 
-function globalNavPopup(e) {
-  var t = this,
-    n = Strut.touch.isSupported ? 'touchend' : 'click';
-  (this.activeClass = 'globalPopupActive'),
-    (this.root = document.querySelector(e)),
-    (this.link = this.root.querySelector('.rootLink')),
-    (this.popup = this.root.querySelector('.popup')),
-    (this.closeButton = this.root.querySelector('.popupCloseButton')),
-    this.link.addEventListener(n, function (e) {
-      e.stopPropagation(), t.togglePopup();
-    }),
-    this.popup.addEventListener(n, function (e) {
-      e.stopPropagation();
-    }),
-    this.closeButton &&
-    this.closeButton.addEventListener(n, function (e) {
-      t.closeAllPopups();
-    }),
-    document.body.addEventListener(
-      n,
-      function (e) {
-        Strut.touch.isDragging || t.closeAllPopups();
-      },
-      !1
-    );
-}
-(function () {
-  window.$ &&
-    window.$.ajaxPrefilter &&
-    $(function () {
-      return $.ajaxPrefilter(function (e, t, n) {
-        var r, i;
-        return (
-          (i = $('meta[name=csrf-token]')),
-          (r = i ? i.attr('content') : ''),
-          n.setRequestHeader('x-stripe-csrf-token', r)
-        );
-      });
-    });
-}.call(this),
-  (function () {
-    function i(e, t, n) {
-      if (!('Analytics' in window)) return;
-      n
-        ? window.Analytics[e](t, {
-          source: n
-        })
-        : window.Analytics[e](t);
-    }
+//if (window.token == '') window.location = "home.html";
 
-    function s(e, t, n, r) {
-      e.addEventListener('click', function (e) {
-        i(t, n, r);
-      });
-    }
+switch (route) {
+  case 'landingPage':
+    header();
 
-    function o() {
-      var n = document.querySelectorAll('[' + e + ']');
-      [].slice.call(n).forEach(function (n) {
-        s(n, 'action', n.getAttribute(e), n.getAttribute(t));
-      });
-    }
-
-    function u(e) {
-      var t = document.querySelectorAll('[' + n + ']');
-      [].slice.call(t).forEach(function (e) {
-        s(e, 'modal', e.getAttribute(n), e.getAttribute(r));
-      });
-    }
-    var e = 'data-analytics-action',
-      t = 'data-action-source',
-      n = 'data-analytics-modal',
-      r = 'data-modal-source';
-    document.addEventListener('DOMContentLoaded', function () {
-      o(), u();
-    });
-  })(),
-  'use strict');
-var Strut = {
-  random: function (e, t) {
-    return Math.random() * (t - e) + e;
-  },
-  arrayRandom: function (e) {
-    return e[Math.floor(Math.random() * e.length)];
-  },
-  interpolate: function (e, t, n) {
-    return e * (1 - n) + t * n;
-  },
-  rangePosition: function (e, t, n) {
-    return (n - e) / (t - e);
-  },
-  clamp: function (e, t, n) {
-    return Math.max(Math.min(e, n), t);
-  },
-  queryArray: function (e, t) {
-    return (
-      t || (t = document.body),
-      Array.prototype.slice.call(t.querySelectorAll(e))
-    );
-  },
-  ready: function (e) {
-    document.readyState !== 'loading'
-      ? e()
-      : document.addEventListener('DOMContentLoaded', e);
-  }
-};
-(Strut.isRetina = window.devicePixelRatio > 1.3),
-  (Strut.mobileViewportWidth = 670),
-  (Strut.isMobileViewport = window.innerWidth < Strut.mobileViewportWidth),
-  window.addEventListener('resize', function () {
-    Strut.isMobileViewport = window.innerWidth < Strut.mobileViewportWidth;
-  }),
-  (Strut.touch = {
-    isSupported: 'ontouchstart' in window || navigator.maxTouchPoints,
-    isDragging: !1
-  }),
-  document.addEventListener('DOMContentLoaded', function () {
-    document.body.addEventListener('touchmove', function () {
-      Strut.touch.isDragging = !0;
-    }),
-      document.body.addEventListener('touchstart', function () {
-        Strut.touch.isDragging = !1;
-      });
-  }),
-  (Strut.load = {
-    images: function (e, t) {
-      typeof e == 'string' && (e = [e]);
-      var n = -e.length;
-      e.forEach(function (e) {
-        var r = new Image();
-        (r.src = e),
-          (r.onload = function () {
-            n++, n === 0 && t && t();
-          });
-      });
-    },
-    css: function (e, t) {
-      var n = document.createElement('link'),
-        r = window.readConfig('strut_files') || {},
-        i = r[e];
-      if (!i)
-        throw new Error('CSS file "' + e + '" not found in strut_files config');
-      (n.href = i),
-        (n.rel = 'stylesheet'),
-        document.head.appendChild(n),
-        t && (n.onload = t);
-    },
-    js: function (e, t) {
-      var n = document.createElement('script'),
-        r = window.readConfig('strut_files') || {},
-        i = r[e];
-      if (!i)
-        throw new Error(
-          'Javascript file "' + e + '" not found in strut_files config'
-        );
-      (n.src = i), document.head.appendChild(n), t && (n.onload = t);
-    }
-  }),
-  (Strut.supports = {
-    es6: (function () {
-      try {
-        return new Function('(a = 0) => a'), !0;
-      } catch (e) {
-        return !1;
+    var glide = new Glide('#intro', {
+      type: 'carousel',
+      perView: 4,
+      focusAt: 'center',
+      breakpoints: {
+        800: {
+          perView: 2
+        },
+        480: {
+          perView: 1
+        }
       }
-    })(),
-    pointerEvents: (function () {
-      var e = document.createElement('a').style;
-      return (e.cssText = 'pointer-events:auto'), e.pointerEvents === 'auto';
-    })(),
-    positionSticky: (function () {
-      var e = 'position:',
-        t = 'sticky',
-        n = document.createElement('a'),
-        r = n.style,
-        i = ' -webkit- -moz- -o- -ms- '.split(' ');
-      return (
-        (r.cssText = e + i.join(t + ';' + e).slice(0, -e.length)),
-        r.position.indexOf(t) !== -1
-      );
-    })(),
-    masks: (function () {
-      return !/MSIE|Trident|Edge/i.test(navigator.userAgent);
-    })()
-  }),
-  (globalNavDropdowns.prototype.checkCollision = function () {
-    var e = this;
-    if (Strut.isMobileViewport) return;
-    if (e.compact == 1) {
-      var t = document.body.clientWidth,
-        n = e.primaryNav.getBoundingClientRect();
-      n.left + n.width / 2 > t / 2 &&
-        (e.container.classList.remove('compact'), (e.compact = !1));
-    } else {
-      var r = e.primaryNavItem.getBoundingClientRect(),
-        i = e.secondaryNavItem.getBoundingClientRect();
-      r.right > i.left &&
-        (e.container.classList.add('compact'), (e.compact = !0));
-    }
-  }),
-  (globalNavDropdowns.prototype.openDropdown = function (e) {
-    var t = this;
-    if (this.activeDropdown === e) return;
-    this.container.classList.add('overlayActive'),
-      this.container.classList.add('dropdownActive'),
-      (this.activeDropdown = e),
-      this.dropdownRoots.forEach(function (e, t) {
-        e.classList.remove('active');
-      }),
-      e.classList.add('active');
-    var n = e.getAttribute('data-dropdown'),
-      r = 'left',
-      i,
-      s,
-      o;
-    this.dropdownSections.forEach(function (e) {
-      e.el.classList.remove('active'),
-        e.el.classList.remove('left'),
-        e.el.classList.remove('right'),
-        e.name == n
-          ? (e.el.classList.add('active'),
-            (r = 'right'),
-            (i = e.content.offsetWidth),
-            (s = e.content.offsetHeight),
-            (o = e.content))
-          : e.el.classList.add(r);
     });
-    var u = 520,
-      a = 400,
-      f = i / u,
-      l = s / a,
-      c = e.getBoundingClientRect(),
-      h = c.left + c.width / 2 - i / 2;
-    (h = Math.round(Math.max(h, 10))),
-      clearTimeout(this.disableTransitionTimeout),
-      (this.enableTransitionTimeout = setTimeout(function () {
-        t.container.classList.remove('noDropdownTransition');
-      }, 50)),
-      (this.dropdownBackground.style.transform =
-        'translateX(' + h + 'px) scaleX(' + f + ') scaleY(' + l + ')'),
-      (this.dropdownContainer.style.transform = 'translateX(' + h + 'px)'),
-      (this.dropdownContainer.style.width = i + 'px'),
-      (this.dropdownContainer.style.height = s + 'px');
-    var p = Math.round(c.left + c.width / 2);
-    this.dropdownArrow.style.transform =
-      'translateX(' + p + 'px) rotate(45deg)';
-    var d = o.children[0].offsetHeight / l;
-    this.dropdownBackgroundAlt.style.transform = 'translateY(' + d + 'px)';
-  }),
-  (globalNavDropdowns.prototype.closeDropdown = function () {
-    var e = this;
-    if (!this.activeDropdown) return;
-    this.dropdownRoots.forEach(function (e, t) {
-      e.classList.remove('active');
-    }),
-      clearTimeout(this.enableTransitionTimeout),
-      (this.disableTransitionTimeout = setTimeout(function () {
-        e.container.classList.add('noDropdownTransition');
-      }, 50)),
-      this.container.classList.remove('overlayActive'),
-      this.container.classList.remove('dropdownActive'),
-      (this.activeDropdown = undefined);
-  }),
-  (globalNavDropdowns.prototype.toggleDropdown = function (e) {
-    this.activeDropdown === e ? this.closeDropdown() : this.openDropdown(e);
-  }),
-  (globalNavDropdowns.prototype.startCloseTimeout = function () {
-    var e = this;
-    e.closeDropdownTimeout = setTimeout(function () {
-      e.closeDropdown();
-    }, 50);
-  }),
-  (globalNavDropdowns.prototype.stopCloseTimeout = function () {
-    var e = this;
-    clearTimeout(e.closeDropdownTimeout);
-  }),
-  (globalNavPopup.prototype.togglePopup = function () {
-    var e = this.root.classList.contains(this.activeClass);
-    this.closeAllPopups(!0), e || this.root.classList.add(this.activeClass);
-  }),
-  (globalNavPopup.prototype.closeAllPopups = function (e) {
-    var t = document.getElementsByClassName(this.activeClass);
-    for (var n = 0; n < t.length; n++) t[n].classList.remove(this.activeClass);
-  }),
-  Strut.supports.pointerEvents ||
-  Strut.load.css('v3/shared/navigation_ie10.css'),
-  Strut.ready(function () {
-    new globalNavDropdowns('.globalNav'),
-      new globalNavPopup('.globalNav .navSection.mobile'),
-      new globalNavPopup('.globalFooterNav .select.country'),
-      new globalNavPopup('.globalFooterNav .select.language');
-  });
+
+    glide.mount();
+
+    const particlesJS = window.particlesJS;
+
+    particlesJS(createParticles());
+
+    document.getElementById('stock-image').src = homeImage;
+
+    let btnLogin = document.getElementById('login');
+    btnLogin.addEventListener('click', function (e) {
+      let bodyFormData = new FormData();
+      bodyFormData.append(
+        'email',
+        document.getElementById('login-email').value
+      );
+      bodyFormData.append(
+        'password',
+        document.getElementById('login-password').value
+      );
+
+      console.log(bodyFormData);
+
+      axios({
+        method: 'post',
+        url: 'http://127.0.0.1:8000/api/login',
+        data: bodyFormData,
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
+        .then(function (response) {
+          window.token = response.data.access_token;
+          getUserCredentials(document.getElementById('login-email').value);
+        })
+        .catch(function (error) {
+          console.error(error);
+        })
+        .then(function () { });
+    });
+
+    break;
+
+  case 'auctionHouse':
+    loadAuctionHouses();
+    break;
+  case 'auctionHouseDetail':
+    loadAuctionHousesDetail();
+    break;
+  case 'auctonBid':
+    loadItemById(1);
+    break;
+  case 'user':
+    loadUserDashboard();
+    break;
+}
+
+function getUserCredentails(email) {
+  axios
+    .get('http://127.0.0.1:8000/user/findByEmail/' + email)
+    .then(function (response) {
+      window.userId = response.data.userId;
+      window.userEmail = response.data.userEmail;
+      window.userTitle = response.data.userTitle;
+    });
+    window.location = 'user.html';
+}

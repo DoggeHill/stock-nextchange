@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="https://freepngimg.com/thumb/diamond/30147-1-diamond-vector-clip-art-thumb.png" />
+  <title>AuctionHouse</title>
+</head>
+
+<body id="auctionHouse">
+  <div class="container-fluid panel">
+    <div class="row">
+      <aside class="col-lg-2 col-md-3 col-sm-12 panel__menu">
+        <div class="menu-wrapper">
+          <div class="panel__logo">
+            <img id="logo" class="panel__logo" alt="logo" src="img/logo.svg" />
+            <span>Stock<br />exchange</span>
+          </div>
+          <ul>
+            <li class="avatar">
+              <i class="icon icon-hipster"></i>
+              <span id="userName">Hello, Patrik Hyll</span>
+              <span id="userEmail">patrikhyll@gmail.com</span>
+            </li>
+            <li>
+              <a href="user.html"><i class="icon-stats-bars"></i>Dashboard<i class="icon-ctrl"></i></a>
+            </li>
+            <li class="menu-item-active">
+              <a href="auction-house-list.html"><i class="icon-office"></i>Auction Houses<i class="icon-ctrl"></i></a>
+            </li>
+            <li>
+              <a href="auction-house.html"><i class="icon-coin-euro"></i>Auction House<i class="icon-ctrl"></i></a>
+            </li>
+            <li>
+              <a href="item.html"><i class="icon-diamonds"></i>Item<i class="icon-ctrl"></i></a>
+            </li>
+            <li>
+              <a href="home.html"><i class="icon-home"></i>Home<i class="icon-ctrl"></i></a>
+            </li>
+          </ul>
+          <div class="footer">
+            <span> Stock exchange Main dashboard<br /> </span>
+            <span> &#169; 2023 All Rights Reserved<br /><br /> </span>
+            <span> Made with 💟 by DoggeHill<br /> </span>
+          </div>
+        </div>
+      </aside>
+      <main class="col-lg-10 col-md-9 col-sm-12 panel--houses panel__main">
+        <div class="intro intro--portfolio">
+          <h1 class="h1">Auction housess</h1>
+        </div>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4 auction_house auction_house--description">
+              <div class="card card__pull-up">
+                <h3>About</h3>
+                <div>
+                  <i class="icon icon-house"></i>
+                  <h4>what is AuctionHouse</h4>
+                </div>
+                <p>
+                  Scanfcode.com <i>CODE WANTS TO BE SIMPLE </i> is an
+                  initiative to help the upcoming programmers with the code.
+                  Scanfcode focuses on providing the most efficient code or
+                  snippets as the code wants to be simple.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="row" id="auctionHouseRow"></div>
+          <div class="row" id="auctionHouseRowPlus">
+            <div class="col-lg-4 auction_house auction_house--add-new">
+              <div class="auction_house__pull-up card">
+                <a id="createAuctionHouseModal" href="javascript:void(0)">
+                  <i class="icon-plus"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="h3 modal-title" id="exampleModalLabel">
+            Create new auction house
+          </h3>
+        </div>
+        <div class="modal-body">
+          <form id="newAuctionHoue">
+            <div class="form-group visually-hidden">
+              <input required type="text" id="createNewAuctionHouseId" placeholder=" " />
+              <label>Id</label>
+            </div>
+            <div class="form-group">
+              <input required type="text" id="createNewAuctionHouseName" placeholder=" " />
+              <label>Name</label>
+            </div>
+            <div class="form-group">
+              <input required type="text" id="createNewAuctionHouseLocation" placeholder=" " />
+              <label>Location</label>
+            </div>
+            <div class="form-group">
+              <input required type="text" id="createNewAuctionHouseImage" placeholder=" " />
+              <label>Image url</label>
+            </div>
+            <div class="form-group">
+              <select class="select2" id="createNewAuctionHouseCatModal"></select>
+              <label>Category</label>
+            </div>
+            <div class="form-group">
+              <textarea id="createNewAuctionHouseDescription" rows="3" placeholder=" "></textarea>
+              <label>Description</label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="closeModal" class="btn btn--orange btn-secondary" data--bs-dismiss="modal">
+            Close
+          </button>
+          <button type="button" id="deleteAuctionHouse" class="btn btn-red">
+            Delete auction house
+          </button>
+          <button type="button" id="createAuctionHouse" class="btn btn-primary">
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

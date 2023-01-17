@@ -1,16 +1,16 @@
 
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
-export function createChart() {
+export function createChart(plabels, pdata) {
   const ctx = document.getElementById('myChart').getContext('2d');
   const myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: plabels,
       datasets: [
         {
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          label: 'Item prices',
+          data: pdata,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -39,4 +39,5 @@ export function createChart() {
       }
     }
   });
+  return myChart;
 }

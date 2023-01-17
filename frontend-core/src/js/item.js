@@ -1,12 +1,15 @@
 import axios from 'axios';
-import { Modal, Toast } from 'bootstrap';
 import { Grid } from 'gridjs';
+import { createChart } from './chart';
 
 /**
  * GridJS: https://gridjs.io/
  */
 
 // vars
+// TODO:
+let auctionHouseId = 1;
+let chart;
 
 const prefix = 'http://127.0.0.1:8000/api/auction';
 const prefixItem = 'http://127.0.0.1:8000/api/item';
@@ -14,20 +17,21 @@ const urls = {
   auctionHouse: prefix + '/auctionHouse',
   auctionHouseCat: prefix + '/auctionsHouseCat',
   findAuctionHouseById: prefix + '/getAuctionHouseById/',
-  itemList: prefixItem + '/list'
+  findItemByAuctionHouseId: prefixItem + '/findByAuctionHouseId/',
+  itemList: prefixItem + '/list',
+  itemCatById: prefixItem + '/findItemCategoryById/'
 };
 
 const auctionHouseSelect = document.getElementById('auctionHouseSelect');
 
-const goodToast = new Toast(document.getElementById('toastGood'), null);
-const badToast = new Toast(document.getElementById('toastBad'), null);
-
 export function loadAuctionHouseDetail() {
-  loadAuctionHouses();
+  initData();
   let itemArr = [];
+  let userArr = [];
+  let priceArr = [];
 
   axios
-    .get(urls['itemList'])
+    .get(urls['findItemByAuctionHouseId'] + auctionHouseId)
     .then(function (response) {
       for (const item of response.data) {
         let dto = {
@@ -35,32 +39,71 @@ export function loadAuctionHouseDetail() {
           image: item.image,
           initial_price: item.initial_price,
           title: item.title,
-          user: item.user.name
+          user: item.name
         };
+        userArr.push(dto.user);
+        priceArr.push(dto.initial_price);
 
         itemArr.push(dto);
       }
     })
     .catch(function (error) {
       console.error(error);
-      badToast.show();
     })
     .then(function () {
-      goodToast.show();
       loadDataGrid();
+      if (chart) {
+        chart.data.labels.pop();
+        chart.data.datasets.forEach((dataset) => {
+          dataset.data.pop();
+        });
+        chart.data.labels.push(userArr);
+        chart.data.datasets.forEach((dataset) => {
+          dataset.data.push(priceArr);
+        });
+        chart.update();
+      } else {
+        // handle no chart
+        chart = createChart(userArr, priceArr);
+      }
     });
 
-  console.log(itemArr);
-
   function loadDataGrid() {
+    document.getElementById('wrapper').innerHTML = '';
     const grid = new Grid({
       columns: ['title', 'user', 'initial_price', 'description'],
       data: itemArr
-    }).render(document.getElementById('wrapper'));
+    }).render(document.getElementById('wrapper')).forceRender();
   }
 }
 
-export function loadAuctionHouses() {
+function initData() {
+  const title = document.getElementById('auctionHouseName');
+  const description = document.getElementById('auctionHouseDescription');
+  const location = document.getElementById('auctionHouseLocation');
+  const dateCreated = document.getElementById('auctionHouseDateCreated');
+  const itemCat = document.getElementById('auctionHouseCategory');
+  const image = document.getElementById('auctionHouseImage');
+
+  console.log(image);
+
+  axios
+    .get(urls['findAuctionHouseById'] + auctionHouseId)
+    .then(function (response) {
+      console.log(response);
+      title.innerHTML = response.data.title;
+      description.innerHTML = response.data.description;
+      location.innerHTML = response.data.location;
+      dateCreated.innerHTML = response.data.created_at;
+      image.src = response.data.image;
+    });
+
+  axios.get(urls['itemCatById'] + auctionHouseId).then(function (response) {
+    itemCat.innerHTML = response.data.title;
+  });
+}
+
+export function loadAuctionHousesDetail() {
   // Make a request for a user with a given ID
   axios
     .get(urls['auctionHouse'])
@@ -68,12 +111,14 @@ export function loadAuctionHouses() {
       for (const auctionHouse of response.data) {
         auctionHouseSelect.add(new Option(auctionHouse.title, auctionHouse.id));
       }
+      auctionHouseSelect.addEventListener('change', function () {
+        auctionHouseId = this.value;
+        loadAuctionHouseDetail();
+      });
+      loadAuctionHouseDetail();
     })
     .catch(function (error) {
       console.error(error);
-      badToast.show();
     })
-    .then(function () {
-      goodToast.show();
-    });
+    .then(function () {});
 }

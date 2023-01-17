@@ -23,6 +23,7 @@
     position: relative;
   }
   &__image{
+    border-radius: 8px;
     @include m.box-img-cover;
     padding-bottom: 100%;
   }
@@ -36,6 +37,10 @@
   top: 50%;
   transform: translate(-50%,-50%);
   z-index: 999;
+  i{
+    color: v.$dark-grey;
+    font-size: 2.5rem;
+  }
 }
 .iq-video {
   background: white;
@@ -46,7 +51,7 @@
   font-size: 20px;
   color: white;
   border-radius: 100%;
-  line-height: 53px;
+  line-height: 65px;
   z-index: 9;
   position: relative;
   border: 8px solid blue;
@@ -132,9 +137,9 @@
   height: 10px;
   top: 24px;
   right: -6px;
-  background: rgba(233, 33, 99, 1);
+  background: v.$brand-color;
   border-radius: 50%;
-  box-shadow: 0 0 0 3px rgba(233, 33, 99, 0.2);
+  box-shadow: 0 0 0 3px v.$brand-color-dark;
 }
 .timeline ul li:nth-child(even):before {
   content: '';
@@ -143,14 +148,14 @@
   height: 10px;
   top: 24px;
   left: -4px;
-  background: rgba(233, 33, 99, 1);
+  background: v.$brand-color;
   border-radius: 50%;
-  box-shadow: 0 0 0 3px rgba(233, 33, 99, 0.2);
+  box-shadow: 0 0 0 3px v.$brand-color-dark;
 }
 .timeline ul li h3 {
   padding: 0;
   margin: 0;
-  color: rgba(233, 33, 99, 1);
+  color: v.$brand-color;
   font-weight: 600;
 }
 .timeline ul li p {
@@ -168,10 +173,10 @@
   right: -165px;
   margin: 0;
   padding: 8px 16px;
-  background: rgba(233, 33, 99, 1);
+  background: v.$brand-color;
   color: #fff;
   border-radius: 18px;
-  box-shadow: 0 0 0 3px rgba(233, 33, 99, 0.3);
+  box-shadow: 0 0 0 3px v.$brand-color-dark;
 }
 .timeline ul li:nth-child(even) .time {
   position: absolute;
@@ -179,10 +184,10 @@
   left: -165px;
   margin: 0;
   padding: 8px 16px;
-  background: rgba(233, 33, 99, 1);
+  background: v.$brand-color;
   color: #fff;
   border-radius: 18px;
-  box-shadow: 0 0 0 3px rgba(233, 33, 99, 0.3);
+  box-shadow: 0 0 0 3px v.$brand-color-dark;
 }
 @media (max-width: 1000px) {
   .timeline {

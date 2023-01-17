@@ -40,6 +40,18 @@ class ItemController extends Controller
         return Item::select('*')->where('user_id', $id)->get();
     }
 
+    public function findByAuctionHouseId($id){
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|numeric'
+        ]);
+
+        if ($validator->fails())
+            abort(404);
+
+    
+        return Item::select('item.*', 'users.name')->where('auction_house_id', $id)->join('users','item.user_id', '=', 'users.id')->get();
+    }
+
     public function createItem(Request $request){
 
         $this->validate($request, [

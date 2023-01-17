@@ -20,7 +20,7 @@ class AuctionHouseController extends Controller
     //* Auction house 
     public function list()
     {
-        return AuctionHouse::all();
+        return AuctionHouse::with('auctionHouseCategory')->get();
     }
 
     public function getAuctionHouseById($id)
@@ -68,7 +68,6 @@ class AuctionHouseController extends Controller
         if (isset($id) && $id != 0) {
             $auctionHouse = AuctionHouse::find($id);
             $auctionHouse->title = $request->title;
-            $auctionHouse->type = $request->type;
             $auctionHouse->location = $request->location;
             $auctionHouse->description = $request->description;
             $auctionHouse->auction_house_category_id = $request->auction_house_category_id;

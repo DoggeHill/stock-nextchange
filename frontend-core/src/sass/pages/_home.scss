@@ -3,8 +3,21 @@
 // -----------------------------------------------------------------------------
 @use '../abstracts' as a;
 
-#home {
-    background-color: a.$dark-grey;
+#landingPage {
+  background-color: a.$dark-grey;
+
+  #logo {
+    width: 30px;
+    height: 40px;
+  }
+  .reasons-to-join {
+    padding: 3rem 0;
+    background-color: rgb(29, 30, 25);
+    &__reason {
+      padding: 2rem;
+    }
+  }
+  p {
+    color: a.$light-grey;
+  }
 }
-
-

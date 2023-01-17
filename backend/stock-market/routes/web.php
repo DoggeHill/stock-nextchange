@@ -33,6 +33,7 @@ $router->group(['prefix' => '/api/user'], function () use ($router) {
     $router->get('test', 'UserController@test');
 
     $router->get('list', 'UserController@list');
+    $router->get('findByEmail/{email}', 'UserController@findByEmail');
     $router->get('findById/{id}', 'UserController@findById');
 });
 
@@ -41,8 +42,8 @@ $router->group(['prefix' => '/api/auction'], function () use ($router) {
 
     $router->get('auctionHouse', 'AuctionHouseController@list');
     $router->get('getAuctionHouseById/{id}', 'AuctionHouseController@getAuctionHouseById');
-    $router->put('auctionHouse', 'AuctionHouseController@createModifyAuctionHouse');
-    $router->delete('deleteAuctionHouse/{id}', 'AuctionHouseController@deleteAuctionHouse');
+    $router->post('auctionHouse', 'AuctionHouseController@createModifyAuctionHouse');
+    $router->get('deleteAuctionHouse/{id}', 'AuctionHouseController@deleteAuctionHouse');
 
     $router->get('auctionsHouseCat', 'AuctionHouseController@listCat');
     $router->get('auctionsHouseCat/{id}', 'AuctionHouseController@getAuctionHouseCatById');
@@ -56,6 +57,7 @@ $router->group(['prefix' => '/api/item'], function () use ($router) {
     $router->get('list', 'ItemController@list');
     $router->get('findById/{id}', 'ItemController@findById');
     $router->get('findByUserId/{id}', 'ItemController@findByUserId');
+    $router->get('findByAuctionHouseId/{id}', 'ItemController@findByAuctionHouseId');
     $router->get('findItemCategoryById/{id}', 'ItemController@findItemCategoryById');
 
     $router->delete('delete/{id}', 'ItemController@deleteItem');
@@ -70,6 +72,6 @@ $router->group(['prefix' => '/api/bid'], function () use ($router) {
     $router->get('findByItemId/{id}', 'BidController@findByItemId');
     $router->get('findMaxByItemId/{id}', 'BidController@findMaxByItemId');
     $router->post('createBid', 'BidController@createBid');
-    $router->post('stats', 'BidController@stats');
+    $router->get('stats', 'BidController@stats');
     $router->post('statsByUser/{id}', 'BidController@statsByUser');
 });
