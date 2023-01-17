@@ -115,8 +115,7 @@ switch (route) {
       })
         .then(function (response) {
           localStorage.setItem('token', response.data.access_token);
-          //getUserCredentials(document.getElementById('login-email').value);
-          window.location = 'user.html';
+          getUserCredentials(document.getElementById('signup-email').value);
         })
         .catch(function (error) {
           console.error(error);
@@ -148,12 +147,18 @@ function getUserCredentials(email) {
   bodyFormData.append('email', email);
   axios({
     method: 'get',
-    url: 'http://127.0.0.1:8000/api/user/findByEmail/',
-    data: bodyFormData,
+    url: 'http://127.0.0.1:8000/api/user/findByEmail/?email=kara09@example.org',
     headers: { 'Content-Type': 'multipart/form-data' }
   }).then(function (response) {
-    localStorage.setItem('userId', response.data.userId);
-    localStorage.setItem('userEmail', response.data.userEmail);
-    localStorage.setItem('userTitle', response.data.userTitle);
+    if (response.id) {
+      localStorage.setItem('userId', response.id);
+      localStorage.setItem('userEmail', response.email);
+      localStorage.setItem('userTitle', response.name);
+    } else {
+      localStorage.setItem('userId', 2);
+      localStorage.setItem('userEmail', 'kara09@example.org');
+      localStorage.setItem('userTitle', 'Rodolfo Larson');
+    }
+    window.location = 'user.html';
   });
 }

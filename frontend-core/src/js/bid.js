@@ -57,7 +57,7 @@ export function initLoadItem() {
         .then(function () {
           document.getElementById('userName').innerHTML =
             localStorage.getItem('userTitle');
-          document.getElementById('userName').innerHTML =
+          document.getElementById('useEmail').innerHTML =
             localStorage.getItem('userEmail');
         });
     },

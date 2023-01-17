@@ -85,7 +85,7 @@ function initData() {
   const image = document.getElementById('auctionHouseImage');
 
   document.getElementById('userName').innerHTML = localStorage.getItem('userTitle');
-  document.getElementById('userName').innerHTML = localStorage.getItem('userEmail');
+  document.getElementById('userEmail').innerHTML = localStorage.getItem('userEmail');
 
   axios
     .get(urls['findAuctionHouseById'] + auctionHouseId)
