@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\AuctionHouse;
 use App\Models\AuctionHouseCategory;
+
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Validator;
+
 class AuctionHouseController extends Controller
 {
 
@@ -23,11 +25,27 @@ class AuctionHouseController extends Controller
 
     public function getAuctionHouseById($id)
     {
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|numeric'
+        ]);
+
+        if ($validator->fails())
+            abort(404);
+
         return AuctionHouse::find($id);
+
     }
 
     public function deleteAuctionHouse($id)
     {
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|numeric'
+        ]);
+
+        if ($validator->fails())
+            abort(404);
+
+
         $house = AuctionHouse::find($id);
         if ($house) {
             return $house->delete($house);

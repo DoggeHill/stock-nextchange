@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Item;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -21,6 +20,13 @@ class UserController extends Controller
 
     public function findById($id)
     {
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|numeric'
+        ]);
+
+        if ($validator->fails())
+            abort(404);
+            
         return User::find($id);
     }
 

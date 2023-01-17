@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AuctionHouse;
 use App\Models\Item;
 use App\Models\ItemCategory;
-use App\Models\User;
-use App\Models\AuctionHouseCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ItemController extends Controller
 {
@@ -21,10 +19,24 @@ class ItemController extends Controller
     }   
 
     public function findById($id) {
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|numeric'
+        ]);
+
+        if ($validator->fails())
+            abort(404);
+
         return Item::find($id);
     }
 
     public function findByUserId($id){
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|numeric'
+        ]);
+
+        if ($validator->fails())
+            abort(404);
+
         return Item::select('*')->where('user_id', $id)->get();
     }
 
@@ -58,6 +70,13 @@ class ItemController extends Controller
 
     public function deleteItem($id)
     {
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|numeric'
+        ]);
+
+        if ($validator->fails())
+            abort(404);
+
         $item = Item::find($id);
         if ($item) {
             return $item->delete($item);
@@ -67,6 +86,13 @@ class ItemController extends Controller
     }
 
     public function findItemCategoryById($id) {
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|numeric'
+        ]);
+
+        if ($validator->fails())
+            abort(404);
+            
         return ItemCategory::find($id);
     }
 }

@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AuctionHouse;
-use App\Models\Item;
-use App\Models\User;
 use App\Models\Bid;
-use App\Models\AuctionHouseCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BidController extends Controller
 {
@@ -21,15 +18,36 @@ class BidController extends Controller
 
     public function findByItemId($id) {
 
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|numeric'
+        ]);
+
+        if ($validator->fails())
+            abort(404);
+
         return Bid::select('bid.*', 'users.name')
             ->join('users','bid.user_id', '=', 'users.id')->get();
     }
 
     public function findMaxByItemId($id) {
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|numeric'
+        ]);
+
+        if ($validator->fails())
+            abort(404);
+
         return Bid::select('*')->where('item_id', $id)->max('price');
     }
 
     public function findByUserId($id){
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|numeric'
+        ]);
+
+        if ($validator->fails())
+            abort(404);
+
         return Bid::select('*')->where('user_id', $id)->get();
     }
 
@@ -67,6 +85,13 @@ class BidController extends Controller
     }
     
     public function statsByUser($id) {
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|numeric'
+        ]);
+
+        if ($validator->fails())
+            abort(404);
+            
         $max = DB::table('bids')->max('price')->where('user_id', $id); 
         $min = DB::table('bids')->min('price')->where('user_id', $id); 
         $cunt = DB::table('bids')->count()->where('user_id', $id);
