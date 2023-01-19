@@ -22,6 +22,7 @@ input[type='email'],
 input[type='tel'],
 input[type='number'],
 input[type='password'],
+input[type='date'],
 textarea {
   background-color: $_background-color;
   border: solid 1px $_border-color;
@@ -41,14 +42,17 @@ textarea {
   height: 4rem;
   margin-top: 5px;
   margin-bottom: 3rem;
-  min-width: 8rem;
+  min-width: 10rem;
 }
 
 .form-group {
   position: relative;
 }
 
-
+label.white{
+  padding-right: 2rem;
+  color: a.$light-grey;
+}
 
 /**
 ** Label form styling

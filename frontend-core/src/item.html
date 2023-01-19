@@ -12,7 +12,7 @@
 <body id="itemDetail">
   <div class="container-fluid panel">
     <div class="row">
-      <aside class="col-lg-2 col-md-3 col-sm-12 panel__menu">
+      <aside id="panelMenu" class="col-lg-2 col-md-3 col-sm-12 panel__menu">
         <div class="menu-wrapper">
           <div class="panel__logo">
             <img id="logo" class="panel__logo" alt="logo" src="img/logo.svg" />
@@ -52,6 +52,9 @@
           <h1 class="h1">Item</h1>
           <select id="itemSelect" class="form-select select2" aria-label="Default select example"
             name="itemSelect"></select>
+          <div id="sideMenu" class="introButton">
+            <i class="icon-menu"></i>
+          </div>
         </div>
 
         <div class="container">
@@ -134,5 +137,59 @@
       </main>
     </div>
   </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="h3 modal-title" id="exampleModalLabel">
+            Create new auction house
+          </h3>
+        </div>
+        <div class="modal-body">
+          <form id="newAuctionHoue">
+            <div class="form-group visually-hidden">
+              <input required type="text" id="createNewAuctionHouseId" placeholder=" " />
+              <label>Id</label>
+            </div>
+            <div class="form-group">
+              <input required type="text" id="createNewAuctionHouseName" placeholder=" " />
+              <label>Name</label>
+            </div>
+            <div class="form-group">
+              <input required type="text" id="createNewAuctionHouseLocation" placeholder=" " />
+              <label>Location</label>
+            </div>
+            <div class="form-group">
+              <input required type="text" id="createNewAuctionHouseImage" placeholder=" " />
+              <label>Image url</label>
+            </div>
+            <div class="form-group">
+              <select class="select2" id="createNewAuctionHouseCatModal"></select>
+              <label>Category</label>
+            </div>
+            <div class="form-group">
+              <textarea id="createNewAuctionHouseDescription" rows="3" placeholder=" "></textarea>
+              <label>Description</label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="closeModal" class="btn btn--orange btn-secondary" data--bs-dismiss="modal">
+            Close
+          </button>
+          <button type="button" id="deleteAuctionHouse" class="btn btn-red">
+            Delete auction house
+          </button>
+          <button type="button" id="createAuctionHouse" class="btn btn-primary">
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>

@@ -18,6 +18,10 @@ class ItemController extends Controller
        return Item::with('user')->get();   
     }   
 
+    public function listCategory(){
+        return ItemCategory::all();   
+     }  
+
     public function findById($id) {
         $validator = Validator::make(['id' => $id], [
             'id' => 'required|numeric'
@@ -54,6 +58,18 @@ class ItemController extends Controller
 
     public function createItem(Request $request){
 
+        $id = number_format($request->id);
+        if(isset($id) && $id !=0){
+            $item = $this->findById($id);
+            var_dump($item);
+            $item->title = $request->title;
+            $item->description = $request->description;
+            $item->image = $request->image;
+           
+            $item->save();
+            return response()->json($item, 201);
+        }
+
         $this->validate($request, [
             'id' => 'numeric',
             'title' => 'required|max:255',
@@ -67,14 +83,7 @@ class ItemController extends Controller
             'item_category_id' => 'exists:App\Models\ItemCategory,id',
         ]);
        
-        $id = number_format($request->id);
-        if(isset($id) && $id !=0){
-            $item = $this->listItem($id);
-            $item->title = $request->title;
-           
-            $item->save();
-            return response()->json($item, 201);
-        }
+        
 
         $item = Item::create($request->all());
         return response()->json($item, 201);

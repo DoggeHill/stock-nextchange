@@ -57,6 +57,7 @@ body {
 a {
   color: a.$brand-color;
   text-decoration: none;
+  cursor: pointer;
   @include a.on-event {
     color: a.$light-grey;
   }

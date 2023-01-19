@@ -56,18 +56,20 @@ $router->group(['prefix' => '/api/item'], function () use ($router) {
     $router->group(['middleware' => 'auth'], function () use ($router) {
     });
     $router->get('list', 'ItemController@list');
+    $router->get('listCategory', 'ItemController@listCategory');
     $router->get('findById/{id}', 'ItemController@findById');
     $router->get('findByUserId/{id}', 'ItemController@findByUserId');
     $router->get('findByAuctionHouseId/{id}', 'ItemController@findByAuctionHouseId');
     $router->get('findItemCategoryById/{id}', 'ItemController@findItemCategoryById');
-
-    $router->delete('delete/{id}', 'ItemController@deleteItem');
-    $router->put('createItem', 'ItemController@createItem');
+    
+    $router->get('delete/{id}', 'ItemController@deleteItem');
+    $router->post('editItem', 'ItemController@createItem');
 });
 
 $router->group(['prefix' => '/api/bid'], function () use ($router) {
     $router->get('test', 'BidController@test');
-
+    
+    $router->get('findWinner/{id}', 'BidController@findWinner');
     $router->get('list', 'BidController@list');
     $router->get('findByUserId/{id}', 'BidController@findByUserId');
     $router->get('findByItemId/{id}', 'BidController@findByItemId');

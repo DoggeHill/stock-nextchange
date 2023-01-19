@@ -24,9 +24,9 @@ class AuthController extends Controller
         try {
             return $client->post( 'http://127.0.0.1:8080/v1/oauth/token', [
                 "form_params" => [
-                    "client_secret" => 'tl48G5ECRB4ozb6JWFzCu9Iem2shLhJ7gs600y0k',
+                    "client_secret" => 'pWbM6Qd7IGzk8yFBVxFI1jMjHQTSEG2whi1IWJjG',
                     "grant_type" => "password",
-                    "client_id" => 4,
+                    "client_id" => 20,
                     "username" => $request->email,
                     "password" => $request->password
                 ]

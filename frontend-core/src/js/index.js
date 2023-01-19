@@ -22,6 +22,7 @@ import { loadUserDashboard } from './user';
 import { initLoadItem } from './bid';
 import { createParticles } from './particle';
 import { header } from './header';
+import { goodToast, badToast } from './toast';
 
 //* General forms
 import { createForms } from './form';
@@ -42,86 +43,23 @@ if (!window.location.href.includes('home') && !localStorage.getItem('token'))
 switch (route) {
   case 'landingPage':
     header();
-
-    var glide = new Glide('#intro', {
-      type: 'carousel',
-      perView: 4,
-      focusAt: 'center',
-      breakpoints: {
-        800: {
-          perView: 2
-        },
-        480: {
-          perView: 1
-        }
-      }
-    });
-
-    glide.mount();
+    glide();
 
     const particlesJS = window.particlesJS;
-
     particlesJS(createParticles());
 
     document.getElementById('stock-image').src = homeImage;
 
-    let btnLogin = document.getElementById('login');
-    btnLogin.addEventListener('click', function (e) {
-      let bodyFormData = new FormData();
-      bodyFormData.append(
-        'email',
-        document.getElementById('login-email').value
-      );
-      bodyFormData.append(
-        'password',
-        document.getElementById('login-password').value
-      );
+    document.getElementById('login').addEventListener('click', login);
+    document.getElementById('register').addEventListener('click', register);
+    //document.getElementById('logoutButton').addEventListener('click', logout);
 
-      console.log(bodyFormData);
-
-      axios({
-        method: 'post',
-        url: 'http://127.0.0.1:8000/api/login',
-        data: bodyFormData,
-        headers: { 'Content-Type': 'multipart/form-data' }
-      })
-        .then(function (response) {
-          localStorage.setItem('token', response.data.access_token);
-          getUserCredentials(document.getElementById('login-email').value);
-        })
-        .catch(function (error) {
-          console.error(error);
-        })
-        .then(function () {});
-    });
-
-    let btnRegister = document.getElementById('register');
-    btnRegister.addEventListener('click', function (e) {
-      let bodyFormData = new FormData();
-      bodyFormData.append(
-        'email',
-        document.getElementById('signup-email').value
-      );
-      bodyFormData.append(
-        'password',
-        document.getElementById('signup-password').value
-      );
-
-      axios({
-        method: 'post',
-        url: 'http://127.0.0.1:8000/api/register',
-        data: bodyFormData,
-        headers: { 'Content-Type': 'multipart/form-data' }
-      })
-        .then(function (response) {
-          localStorage.setItem('token', response.data.access_token);
-          getUserCredentials(document.getElementById('signup-email').value);
-        })
-        .catch(function (error) {
-          console.error(error);
-        })
-        .then(function () {});
-    });
+    if (localStorage.getItem('userId')) {
+      document.getElementById('sectionLogin').innerHTML =
+        '<h2 class="h2">Hello 👋, ' +
+        localStorage.getItem('userTitle') +
+        '</h2><br><a href="/user.html">Dashboard</a>';
+    }
 
     break;
 
@@ -130,8 +68,16 @@ switch (route) {
     break;
   case 'auctionHouseDetail':
     loadAuctionHousesDetail();
+    document.getElementById('sideMenu').addEventListener('click', function () {
+      let menu = document.getElementById('panelMenu');
+      menu.classList.toggle('hidden');
+    });
     break;
   case 'auctonBid':
+    document.getElementById('sideMenu').addEventListener('click', function () {
+      let menu = document.getElementById('panelMenu');
+      menu.classList.toggle('hidden');
+    });
     initLoadItem(1);
     break;
   case 'user':
@@ -142,23 +88,111 @@ switch (route) {
     break;
 }
 
-function getUserCredentials(email) {
+async function getUserCredentials(email) {
   let bodyFormData = new FormData();
   bodyFormData.append('email', email);
   axios({
     method: 'get',
-    url: 'http://127.0.0.1:8000/api/user/findByEmail/?email=kara09@example.org',
+    url: 'http://127.0.0.1:8000/api/user/findByEmail/?email=' + email,
     headers: { 'Content-Type': 'multipart/form-data' }
   }).then(function (response) {
-    if (response.id) {
-      localStorage.setItem('userId', response.id);
-      localStorage.setItem('userEmail', response.email);
-      localStorage.setItem('userTitle', response.name);
+    if (response.data.id) {
+      localStorage.setItem('userId', response.data.id);
+      localStorage.setItem('userEmail', response.data.email);
+      localStorage.setItem('userTitle', response.data.name);
+      document.getElementById('sectionLogin').innerHTML =
+        '<h2 class="h2">Hello 👋, ' +
+        localStorage.getItem('userTitle') +
+        '</h2><br><a href="/user.html>Dashboard</a>"';
     } else {
-      localStorage.setItem('userId', 2);
-      localStorage.setItem('userEmail', 'kara09@example.org');
-      localStorage.setItem('userTitle', 'Rodolfo Larson');
+      badToast('Error occured! Cannot get user Data');
     }
-    window.location = 'user.html';
   });
 }
+
+function login() {
+  let bodyFormData = new FormData();
+  bodyFormData.append('email', document.getElementById('login-email').value);
+  bodyFormData.append(
+    'password',
+    document.getElementById('login-password').value
+  );
+
+  axios({
+    method: 'post',
+    url: 'http://127.0.0.1:8000/api/login',
+    data: bodyFormData,
+    headers: { 'Content-Type': 'multipart/form-data' }
+  })
+    .then(function (response) {
+      if (response.data.status === 'error') {
+        badToast('Wrong credentails');
+        document.getElementById('loginForm').reset();
+      } else {
+        goodToast('Logged in!');
+        localStorage.setItem('token', response.data.access_token);
+        let dataS = getUserCredentials(
+          document.getElementById('login-email').value
+        ).then((res) => {
+          document.getElementById('loginForm').reset();
+          //window.location = 'user.html';
+        });
+      }
+    })
+    .catch(function (error) {
+      badToast('Error occured!');
+      console.error(error);
+    })
+    .then(function () {});
+}
+
+function register() {
+  let bodyFormData = new FormData();
+  bodyFormData.append('email', document.getElementById('signup-email').value);
+  bodyFormData.append(
+    'password',
+    document.getElementById('signup-password').value
+  );
+
+  axios({
+    method: 'post',
+    url: 'http://127.0.0.1:8000/api/register',
+    data: bodyFormData,
+    headers: { 'Content-Type': 'multipart/form-data' }
+  })
+    .then(function (response) {
+      goodToast('Logged in!');
+      localStorage.setItem('token', response.data.access_token);
+      let dataS = getUserCredentials(
+        document.getElementById('login-email').value
+      ).then((res) => {
+        document.getElementById('signUpForm').reset();
+        window.location = 'user.html';
+      });
+    })
+    .catch(function (error) {
+      badToast('Error occured!');
+      console.error(error);
+    })
+    .then(function () {});
+}
+
+function glide() {
+  var glide = new Glide('#intro', {
+    type: 'carousel',
+    perView: 4,
+    focusAt: 'center',
+    breakpoints: {
+      800: {
+        perView: 2
+      },
+      480: {
+        perView: 1
+      }
+    }
+  });
+
+  glide.mount();
+}
+
+function logout() {}

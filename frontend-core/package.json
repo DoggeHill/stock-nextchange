@@ -69,6 +69,7 @@
     "fslightbox": "^3.3.2-2",
     "gridjs": "^5.1.0",
     "p5": "^1.4.2",
-    "particles.js": "^2.0.0"
+    "particles.js": "^2.0.0",
+    "toastify-js": "^1.12.0"
   }
 }

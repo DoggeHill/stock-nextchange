@@ -26,7 +26,7 @@ class BidController extends Controller
             abort(404);
 
         return Bid::select('bid.*', 'users.name')
-            ->join('users','bid.user_id', '=', 'users.id')->get();
+            ->join('users','bid.user_id', '=', 'users.id')->where('item_id', $id)->get();
     }
 
     public function findMaxByItemId($id) {
@@ -38,6 +38,19 @@ class BidController extends Controller
             abort(404);
 
         return Bid::select('*')->where('item_id', $id)->max('price');
+    }
+
+    public function findWinner($id){
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|numeric'
+        ]);
+
+        if ($validator->fails())
+            abort(404);
+
+        return Bid::select('bid.*', 'users.name')
+            ->join('users','bid.user_id', '=', 'users.id')
+            ->where('item_id', $id)->max('price');
     }
 
     public function findByUserId($id){
@@ -54,7 +67,7 @@ class BidController extends Controller
     public function createBid(Request $request){
 
         $this->validate($request, [
-            'price' => 'required|numeric',
+            'price' => 'required|numeric|between:10,100000',
             'date' => 'required|after:yesterday',
             'user_id' => 'exists:App\Models\User,id',
             'item_id' => 'exists:App\Models\Item,id',

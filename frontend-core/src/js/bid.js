@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Grid } from 'gridjs';
+import { goodToast, badToast } from './toast';
 
 /**
  * GridJS: https://gridjs.io/
@@ -38,12 +39,21 @@ export function initLoadItem() {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       };
 
+      document
+        .getElementById('sideMenu')
+        .addEventListener('click', function () {
+          let menu = document.getElementById('panelMenu');
+          menu.classList.toggle('hidden');
+        });
+
       axios
         .get(urls['itemList'])
         .then(function (response) {
           for (const item of response.data) {
             itemSelect.add(new Option(item.title, item.id));
           }
+          document.getElementById('itemSelect').selectedIndex =
+            localStorage.getItem('itemId') - 1;
           itemSelect.addEventListener('change', function () {
             itemId = this.value;
             localStorage.setItem('itemId', itemId);
@@ -57,7 +67,7 @@ export function initLoadItem() {
         .then(function () {
           document.getElementById('userName').innerHTML =
             localStorage.getItem('userTitle');
-          document.getElementById('useEmail').innerHTML =
+          document.getElementById('userEmail').innerHTML =
             localStorage.getItem('userEmail');
         });
     },
@@ -105,6 +115,11 @@ function initData(data) {
   itemBidSubmit.addEventListener(
     'click',
     function () {
+      if (+document.getElementById('itemBidPrice').innerHTML < 10) {
+        badToast('Wrong price');
+        return;
+      }
+
       let bodyFormData = new FormData();
       bodyFormData.append(
         'price',
@@ -123,7 +138,9 @@ function initData(data) {
         data: bodyFormData,
         headers: { 'Content-Type': 'multipart/form-data' }
       })
-        .then(function (response) {})
+        .then(function (response) {
+          goodToast('Bid created');
+        })
         .catch(function (error) {
           console.error(error);
         })
@@ -183,12 +200,12 @@ function countDownTimer(dt, id) {
   function showRemaining() {
     var now = new Date();
     var distance = end - now;
+
     if (distance < 0) {
       clearInterval(timer);
       document.getElementById('itemBidSubmit').remove();
       document.getElementById(id).innerHTML =
         'EXPIRED!<br><h2 class="h2">Winner is Rodolfo Larson</h2>';
-
       return;
     }
     var days = Math.floor(distance / _day);
@@ -208,12 +225,12 @@ function countDownTimer(dt, id) {
 function loadItemBids() {
   let totalPrice = 0;
   axios
-    .get(urls['bidList'])
+    .get(urls['bidByItemId'] + itemId)
     .then(function (response) {
       for (const item of response.data) {
-        console.log(item);
         let dto = {
-          price: item.price
+          price: item.price,
+          date: item.date
         };
         totalPrice += item.price;
         itemArr.push(dto);
@@ -224,6 +241,7 @@ function loadItemBids() {
       console.error(error);
     })
     .then(function () {
+      goodToast('Data loaded');
       loadDataGrid();
     });
 
@@ -232,11 +250,13 @@ function loadItemBids() {
 
 async function loadItemBidsArr() {
   let aItemArr = [];
-  await axios.get(urls['bidList']).then(function (response) {
+  await axios.get(urls['bidByItemId'] + itemId).then(function (response) {
     for (const item of response.data) {
       console.log(item);
       let dto = {
-        price: item.price
+        price: item.price,
+        date: item.date,
+        name: item.name
       };
 
       aItemArr.push(dto);
@@ -247,18 +267,15 @@ async function loadItemBidsArr() {
 }
 
 function loadDataGrid() {
-  console.log('arr ' + itemArr);
   const grid = new Grid({
-    columns: ['price'],
+    columns: ['price', 'date', 'name'],
     data: itemArr
   }).render(document.getElementById('wrapper'));
 
   let intervalId = window.setInterval(function () {
     // lets update the config
-    console.log('here');
     let dataS = loadItemBidsArr().then((res) => {
       dataS = [{ price: 15 }];
-      console.log(dataS);
       let data = grid
         .updateConfig({
           data: res
@@ -298,6 +315,7 @@ function refreshBidsCaller(id) {
       x = 5;
       itemTimer.innerHTML = 'Refreshing... ⏱️';
       refreshBids(id);
+      loadItemBids();
     }
   }, 1000);
 }

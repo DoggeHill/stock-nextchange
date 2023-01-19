@@ -56,7 +56,7 @@ function initData() {
 
   document.getElementById('userName').innerHTML =
     localStorage.getItem('userTitle');
-  document.getElementById('userName').innerHTML =
+  document.getElementById('userEmail').innerHTML =
     localStorage.getItem('userEmail');
 
   axios
@@ -86,7 +86,8 @@ function initData() {
       for (const item of response.data) {
         console.log(item);
         let dto = {
-          price: item.price
+          price: item.price,
+          date: item.date
         };
         bidArr.push(dto);
       }
@@ -110,7 +111,7 @@ function loadDataGrid() {
 function loadDataBidGrid() {
   document.getElementById('wrapperBids').innerHTML = '';
   const grid = new Grid({
-    columns: ['price'],
+    columns: ['price', 'date'],
     data: bidArr
   }).render(document.getElementById('wrapperBids'));
 }
