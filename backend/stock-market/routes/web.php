@@ -61,6 +61,7 @@ $router->group(['prefix' => '/api/item'], function () use ($router) {
     $router->get('findByUserId/{id}', 'ItemController@findByUserId');
     $router->get('findByAuctionHouseId/{id}', 'ItemController@findByAuctionHouseId');
     $router->get('findItemCategoryById/{id}', 'ItemController@findItemCategoryById');
+    $router->get('findItemCategoryByIdId/{id}', 'ItemController@findItemCategoryByIdId');
     
     $router->get('delete/{id}', 'ItemController@deleteItem');
     $router->post('editItem', 'ItemController@createItem');

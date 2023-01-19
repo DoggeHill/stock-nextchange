@@ -58,7 +58,7 @@ switch (route) {
       document.getElementById('sectionLogin').innerHTML =
         '<h2 class="h2">Hello 👋, ' +
         localStorage.getItem('userTitle') +
-        '</h2><br><a href="/user.html">Dashboard</a>';
+        '</h2><br><a href="file:///C:/Users/phyll/Desktop/webWebDev/frontend-core/dist/home.html">Dashboard</a>';
     }
 
     break;
@@ -103,7 +103,7 @@ async function getUserCredentials(email) {
       document.getElementById('sectionLogin').innerHTML =
         '<h2 class="h2">Hello 👋, ' +
         localStorage.getItem('userTitle') +
-        '</h2><br><a href="/user.html>Dashboard</a>"';
+        '</h2><br><a href="file:///C:/Users/phyll/Desktop/webWebDev/frontend-core/dist/home.html">Dashboard</a>';
     } else {
       badToast('Error occured! Cannot get user Data');
     }

@@ -87,7 +87,8 @@ function initData() {
         console.log(item);
         let dto = {
           price: item.price,
-          date: item.date
+          date: item.date,
+          user: item.user_id
         };
         bidArr.push(dto);
       }
@@ -103,7 +104,7 @@ function initData() {
 function loadDataGrid() {
   document.getElementById('wrapperItems').innerHTML = '';
   const grid = new Grid({
-    columns: ['title', 'initial_price', 'description'],
+    columns: ['Title', 'Initial_price', 'Description'],
     data: itemArr
   }).render(document.getElementById('wrapperItems'));
 }
@@ -111,7 +112,7 @@ function loadDataGrid() {
 function loadDataBidGrid() {
   document.getElementById('wrapperBids').innerHTML = '';
   const grid = new Grid({
-    columns: ['price', 'date'],
+    columns: ['Price', 'Date', 'User'],
     data: bidArr
   }).render(document.getElementById('wrapperBids'));
 }

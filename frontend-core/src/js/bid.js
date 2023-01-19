@@ -20,7 +20,7 @@ const urls = {
   itemById: prefixItem + '/findById/',
   bidByItemId: prefixBid + '/findByItemId/',
   maxBidByItemId: prefixBid + '/findMaxByItemId/',
-  itemCatById: prefixItem + '/findItemCategoryById/',
+  itemCatById: prefixItem + '/findItemCategoryByIdId/',
   createBid: prefixBid + '/createBid/'
 };
 
@@ -104,7 +104,8 @@ function initData(data) {
   itemInitialPrice.innerHTML = data.data.initial_price;
   ///itemImage.innerHTML = data.data.image;
 
-  specifyCatAuction(data.data.auction_house_id, data.data.item_category_id);
+  console.log(data.data);
+  specifyCatAuction(data.data.item_category_id, data.data.auction_house_id);
 
   // listeners
   let itemBidPlus = document.getElementById('itemBidPlus');
@@ -183,7 +184,7 @@ function specifyCatAuction(cat, auction) {
     auctionHouse.innerHTML = response.data.title;
   });
 
-  axios.get(urls['itemCatById'] + auction).then(function (response) {
+  axios.get(urls['itemCatById'] + cat).then(function (response) {
     category.innerHTML = response.data.title;
   });
 }
@@ -230,7 +231,8 @@ function loadItemBids() {
       for (const item of response.data) {
         let dto = {
           price: item.price,
-          date: item.date
+          date: item.date,
+          name: item.user_id,
         };
         totalPrice += item.price;
         itemArr.push(dto);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\ItemCategory;
 use Illuminate\Http\Request;
+use App\Models\AuctionHouse;
 use Illuminate\Support\Facades\Validator;
 
 class ItemController extends Controller
@@ -113,7 +114,18 @@ class ItemController extends Controller
 
         if ($validator->fails())
             abort(404);
-            
+
+        $itemCatIr = AuctionHouse::where('id', $id)->get(['auction_house_category_id']);
+        
+        return ItemCategory::find($itemCatIr);
+    }
+
+    public function findItemCategoryByIdId($id) {
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|numeric'
+        ]);
+
+        
         return ItemCategory::find($id);
     }
 }

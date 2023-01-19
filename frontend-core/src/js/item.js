@@ -58,6 +58,7 @@ export function loadAuctionHouseDetail() {
       console.error(error);
     })
     .then(function () {
+      console.log(itemArr);
       loadDataGrid();
       // handle no chart
       if (chart) {
@@ -69,6 +70,7 @@ export function loadAuctionHouseDetail() {
     });
 
   function loadDataGrid() {
+    console.log(itemArr);
     document.getElementById('wrapper').innerHTML = '';
     const grid = new Grid({
       columns: [
@@ -98,6 +100,9 @@ export function loadAuctionHouseDetail() {
       data: itemArr
     })
       .render(document.getElementById('wrapper'))
+      .updateConfig({
+        data: itemArr
+      })
       .forceRender();
   }
 }
@@ -143,6 +148,7 @@ function initData() {
     });
 
   axios.get(urls['itemCatById'] + auctionHouseId).then(function (response) {
+    console.log(response.data);
     itemCat.innerHTML = response.data.title;
   });
 }
